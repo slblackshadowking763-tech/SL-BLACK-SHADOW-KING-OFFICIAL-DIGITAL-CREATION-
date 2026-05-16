@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SL BLACK SHADOW KING</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+font-family:'Orbitron',sans-serif;
+}
+
+body{
+background:black;
+color:white;
+overflow-x:hidden;
+}
+
+/* PARTICLES */
+
+#particles-js{
+position:fixed;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+/* NAVBAR */
+
+nav{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 50px;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+border-bottom:1px solid red;
+z-index:1000;
+}
+
+.logo-text{
+font-size:24px;
+font-weight:bold;
+color:red;
+text-shadow:0 0 15px red;
+}
+
+nav ul{
+display:flex;
+gap:25px;
+list-style:none;
+}
+
+nav ul li a{
+text-decoration:none;
+color:white;
+transition:0.4s;
+}
+
+nav ul li a:hover{
+color:red;
+text-shadow:0 0 10px red;
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.hero img{
+width:240px;
+height:240px;
+object-fit:cover;
+border-radius:50%;
+border:4px solid red;
+box-shadow:0 0 40px red;
+animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0px);}
+50%{transform:translateY(-15px);}
+100%{transform:translateY(0px);}
+}
+
+.hero h1{
+font-size:65px;
+margin-top:25px;
+color:red;
+text-shadow:0 0 20px red;
+}
+
+.hero p{
+max-width:700px;
+margin-top:15px;
+font-size:18px;
+line-height:1.8;
+}
+
+.hero-buttons{
+margin-top:35px;
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.btn{
+padding:15px 35px;
+border:2px solid red;
+border-radius:40px;
+color:white;
+text-decoration:none;
+transition:0.4s;
+box-shadow:0 0 20px rgba(255,0,0,0.5);
+cursor:pointer;
+}
+
+.btn:hover{
+background:red;
+transform:scale(1.1);
+box-shadow:0 0 40px red;
+}
+
+/* SECTION */
+
+section{
+padding:120px 10%;
+}
+
+.title{
+text-align:center;
+font-size:50px;
+margin-bottom:50px;
+color:red;
+text-shadow:0 0 20px red;
+}
+
+/* ABOUT */
+
+.about-container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+}
+
+.about-box{
+background:rgba(255,0,0,0.08);
+padding:30px;
+border-radius:20px;
+border:1px solid red;
+transition:0.4s;
+backdrop-filter:blur(10px);
+}
+
+.about-box:hover{
+transform:translateY(-10px);
+box-shadow:0 0 30px red;
+}
+
+.about-box h2{
+margin-bottom:15px;
+color:red;
+}
+
+/* DESIGN GALLERY */
+
+.design-gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+}
+
+.design-card{
+position:relative;
+overflow:hidden;
+border-radius:20px;
+border:2px solid red;
+background:#111;
+transition:0.5s;
+box-shadow:0 0 20px rgba(255,0,0,0.5);
+}
+
+.design-card:hover{
+transform:scale(1.05);
+box-shadow:0 0 40px red;
+}
+
+.design-card img{
+width:100%;
+height:320px;
+object-fit:cover;
+transition:0.5s;
+}
+
+.design-card:hover img{
+transform:scale(1.1);
+filter:brightness(0.4);
+}
+
+.overlay{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+opacity:0;
+transition:0.5s;
+background:rgba(0,0,0,0.6);
+}
+
+.design-card:hover .overlay{
+opacity:1;
+}
+
+.overlay h2{
+margin-bottom:20px;
+font-size:30px;
+text-shadow:0 0 15px red;
+}
+
+.view-btn{
+padding:12px 30px;
+border:2px solid red;
+border-radius:30px;
+text-decoration:none;
+color:white;
+transition:0.4s;
+cursor:pointer;
+}
+
+.view-btn:hover{
+background:red;
+box-shadow:0 0 20px red;
+}
+
+/* FULL SCREEN VIEWER */
+
+.fullscreen-viewer{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.95);
+justify-content:center;
+align-items:center;
+z-index:9999;
+animation:fadeIn 0.4s;
+}
+
+.fullscreen-viewer img{
+max-width:95%;
+max-height:95%;
+border:3px solid red;
+border-radius:20px;
+box-shadow:0 0 40px red;
+animation:zoomIn 0.4s;
+}
+
+.close-btn{
+position:absolute;
+top:20px;
+right:30px;
+font-size:45px;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+.close-btn:hover{
+color:red;
+transform:scale(1.2);
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+@keyframes zoomIn{
+from{
+transform:scale(0.7);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+/* CONTACT */
+
+.contact{
+text-align:center;
+}
+
+.contact a{
+display:inline-block;
+margin:15px;
+padding:15px 35px;
+border:2px solid red;
+border-radius:30px;
+text-decoration:none;
+color:white;
+transition:0.4s;
+}
+
+.contact a:hover{
+background:red;
+box-shadow:0 0 25px red;
+}
+
+/* FOOTER */
+
+footer{
+padding:25px;
+text-align:center;
+border-top:1px solid red;
+background:#050505;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:38px;
+}
+
+nav{
+padding:15px 20px;
+}
+
+nav ul{
+display:none;
+}
+
+.hero img{
+width:180px;
+height:180px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<div id="particles-js"></div>
+
+<!-- NAVBAR -->
+
+<nav>
+
+<div class="logo-text">
+SL BLACK SHADOW KING
+</div>
+
+<ul>
+<li><a href="#Home">Home</a></li>
+<li><a href="#About">About</a></li>
+<li><a href="#Designs">Designs</a></li>
+<li><a href="#Contact">Contact</a></li>
+</ul>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<img src="YOUR-LOGO.png" alt="Logo">
+
+<h1>SL BLACK SHADOW KING</h1>
+
+<p>
+Future Digital Designer • AI Designer • Content Creator • Next Generation Designer • Graphic Designer
+</p>
+
+<div class="hero-buttons">
+
+<a href="https://www.facebook.com/profile.php?id=61579489185270&mibextid=ZbWKwL" class="btn">Facebook Page</a>
+
+<a href="https://wa.me/94776763805" class="btn">Official WhatsApp</a>
+
+</div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<h1 class="title">Our Services</h1>
+
+<div class="about-container">
+
+<div class="about-box">
+<h2>Grphic Designs</h2>
+<p>
+  We can create professional graphic designs for you at an affordable price.
+</p>
+</div>
+
+<div class="about-box">
+<h2>Digital Creation</h2>
+<p>
+Professional graphic designs, video edits, social media branding, and AI-generated concepts.
+</p>
+</div>
+
+<div class="about-box">
+<h2>Content Creation</h2>
+<p>
+Get content from us that can help you promote your business and change the minds of the next generation, all at a price that fits your budget.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- DESIGNS -->
+
+<section id="designs">
+
+<h1 class="title">MY GRAPHIC DESIGNS</h1>
+
+<div class="design-gallery">
+
+<!-- DESIGN 1 -->
+
+<div class="design-card">
+<img src="design1.jpg">
+<div class="overlay">
+<h2>DESIGN 01</h2>
+<a onclick="openViewer('design1.jpg')" class="view-btn">OPEN</a>
+</div>
+</div>
+
+<!-- DESIGN 2 -->
+
+<div class="design-card">
+<img src="design2.jpg">
+<div class="overlay">
+<h2>DESIGN 02</h2>
+<a onclick="openViewer('design2.jpg')" class="view-btn">OPEN</a>
+</div>
+</div>
+
+<!-- DESIGN 3 -->
+
+<div class="design-card">
+<img src="design3.jpg">
+<div class="overlay">
+<h2>DESIGN 03</h2>
+<a onclick="openViewer('design3.jpg')" class="view-btn">OPEN</a>
+</div>
+</div>
+
+<!-- DESIGN 4 -->
+
+<div class="design-card">
+<img src="design4.jpg">
+<div class="overlay">
+<h2>DESIGN 04</h2>
+<a onclick="openViewer('design4.jpg')" class="view-btn">OPEN</a>
+</div>
+</div>
+
+<!-- DESIGN 5 -->
+
+<div class="design-card">
+<img src="design5.jpg">
+<div class="overlay">
+<h2>DESIGN 05</h2>
+<a onclick="openViewer('design5.jpg')" class="view-btn">OPEN</a>
+</div>
+</div>
+
+<!-- DESIGN 6 -->
+
+<div class="design-card">
+<img src="design6.jpg">
+<div class="overlay">
+<h2>DESIGN 06</h2>
+<a onclick="openViewer('design6.jpg')" class="view-btn">OPEN</a>
+</div>
+</div>
+
+<!-- DESIGN 7 -->
+
+<div class="design-card">
+<img src="design7.jpg">
+<div class="overlay">
+<h2>DESIGN 07</h2>
+<a onclick="openViewer('design7.jpg')" class="view-btn">OPEN</a>
+</div>
+</div>
+
+<!-- DESIGN 8 -->
+
+<div class="design-card">
+<img src="design8.jpg">
+<div class="overlay">
+<h2>DESIGN 08</h2>
+<a onclick="openViewer('design8.jpg')" class="view-btn">OPEN</a>
+</div>
+</div>
+
+<!-- DESIGN 9 -->
+
+<div class="design-card">
+<img src="design9.jpg">
+<div class="overlay">
+<h2>DESIGN 09</h2>
+<a onclick="openViewer('design9.jpg')" class="view-btn">OPEN</a>
+</div>
+</div>
+
+<!-- DESIGN 10 -->
+
+<div class="design-card">
+<img src="design10.jpg">
+<div class="overlay">
+<h2>DESIGN 10</h2>
+<a onclick="openViewer('design10.jpg')" class="view-btn">OPEN</a>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<h1 class="title">CONTACT</h1>
+
+<div class="contact">
+
+<a href="https://youtube.com/@slblackshadowkingmixer?si=68AOi5gRV8TVDQYG">YouTube Channel</a>
+
+<a href="https://www.facebook.com/profile.php?id=61579489185270&mibextid=ZbWKwL">Facebook Page</a>
+
+<a href="https://wa.me/94776763805">Official WhatsApp</a>
+
+<a href="https://www.facebook.com/share/1DWTDMNMhr/">Facebook Official page</a>
+
+<a href="https://youtube.com/@slblackshadowking?si=BZypN_wEE9lBScm1">YouTube Official Channel</a>
+
+<a href="https://www.tiktok.com/@.sl.black.shadow.k?_r=1&_t=ZS-96Oykms7tQn">Tiktok</a>
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+© 2026 SL BLACK SHADOW KING | ALL RIGHTS RESERVED
+</footer>
+
+<!-- FULL SCREEN VIEWER -->
+
+<div id="fullscreenViewer" class="fullscreen-viewer">
+
+<span class="close-btn" onclick="closeViewer()">✕</span>
+
+<img id="fullscreenImage" src="">
+
+</div>
+
+<!-- PARTICLES -->
+
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+<script>
+
+particlesJS("particles-js", {
+
+"particles": {
+
+"number": {
+"value": 100
+},
+
+"color": {
+"value": "#ff0000"
+},
+
+"shape": {
+"type": "circle"
+},
+
+"opacity": {
+"value": 0.5
+},
+
+"size": {
+"value": 3
+},
+
+"line_linked": {
+"enable": true,
+"distance": 150,
+"color": "#ff0000",
+"opacity": 0.4,
+"width": 1
+},
+
+"move": {
+"enable": true,
+"speed": 3
+}
+
+}
+
+});
+
+/* FULL SCREEN IMAGE VIEWER */
+
+function openViewer(imageSrc){
+
+document.getElementById("fullscreenViewer").style.display = "flex";
+
+document.getElementById("fullscreenImage").src = imageSrc;
+
+}
+
+function closeViewer(){
+
+document.getElementById("fullscreenViewer").style.display = "none";
+
+}
+
+</script>
+
+</body>
+</html>
