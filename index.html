@@ -1,664 +1,661 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SL BLACK SHADOW KING</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-scroll-behavior:smooth;
-font-family:'Orbitron',sans-serif;
-}
-
-body{
-background:black;
-color:white;
-overflow-x:hidden;
-}
-
-/* PARTICLES */
-
-#particles-js{
-position:fixed;
-width:100%;
-height:100%;
-z-index:-1;
-}
-
-/* NAVBAR */
-
-nav{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 50px;
-background:rgba(0,0,0,0.6);
-backdrop-filter:blur(10px);
-border-bottom:1px solid red;
-z-index:1000;
-}
-
-.logo-text{
-font-size:24px;
-font-weight:bold;
-color:red;
-text-shadow:0 0 15px red;
-}
-
-nav ul{
-display:flex;
-gap:25px;
-list-style:none;
-}
-
-nav ul li a{
-text-decoration:none;
-color:white;
-transition:0.4s;
-}
-
-nav ul li a:hover{
-color:red;
-text-shadow:0 0 10px red;
-}
-
-/* HERO */
-
-.hero{
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:20px;
-}
-
-.hero img{
-width:240px;
-height:240px;
-object-fit:cover;
-border-radius:50%;
-border:4px solid red;
-box-shadow:0 0 40px red;
-animation:float 3s ease-in-out infinite;
-}
-
-@keyframes float{
-0%{transform:translateY(0px);}
-50%{transform:translateY(-15px);}
-100%{transform:translateY(0px);}
-}
-
-.hero h1{
-font-size:65px;
-margin-top:25px;
-color:red;
-text-shadow:0 0 20px red;
-}
-
-.hero p{
-max-width:700px;
-margin-top:15px;
-font-size:18px;
-line-height:1.8;
-}
-
-.hero-buttons{
-margin-top:35px;
-display:flex;
-gap:20px;
-flex-wrap:wrap;
-justify-content:center;
-}
-
-.btn{
-padding:15px 35px;
-border:2px solid red;
-border-radius:40px;
-color:white;
-text-decoration:none;
-transition:0.4s;
-box-shadow:0 0 20px rgba(255,0,0,0.5);
-cursor:pointer;
-}
-
-.btn:hover{
-background:red;
-transform:scale(1.1);
-box-shadow:0 0 40px red;
-}
-
-/* SECTION */
-
-section{
-padding:120px 10%;
-}
-
-.title{
-text-align:center;
-font-size:50px;
-margin-bottom:50px;
-color:red;
-text-shadow:0 0 20px red;
-}
-
-/* ABOUT */
-
-.about-container{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:30px;
-}
-
-.about-box{
-background:rgba(255,0,0,0.08);
-padding:30px;
-border-radius:20px;
-border:1px solid red;
-transition:0.4s;
-backdrop-filter:blur(10px);
-}
-
-.about-box:hover{
-transform:translateY(-10px);
-box-shadow:0 0 30px red;
-}
-
-.about-box h2{
-margin-bottom:15px;
-color:red;
-}
-
-/* DESIGN GALLERY */
-
-.design-gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:30px;
-}
-
-.design-card{
-position:relative;
-overflow:hidden;
-border-radius:20px;
-border:2px solid red;
-background:#111;
-transition:0.5s;
-box-shadow:0 0 20px rgba(255,0,0,0.5);
-}
-
-.design-card:hover{
-transform:scale(1.05);
-box-shadow:0 0 40px red;
-}
-
-.design-card img{
-width:100%;
-height:320px;
-object-fit:cover;
-transition:0.5s;
-}
-
-.design-card:hover img{
-transform:scale(1.1);
-filter:brightness(0.4);
-}
-
-.overlay{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-opacity:0;
-transition:0.5s;
-background:rgba(0,0,0,0.6);
-}
-
-.design-card:hover .overlay{
-opacity:1;
-}
-
-.overlay h2{
-margin-bottom:20px;
-font-size:30px;
-text-shadow:0 0 15px red;
-}
-
-.view-btn{
-padding:12px 30px;
-border:2px solid red;
-border-radius:30px;
-text-decoration:none;
-color:white;
-transition:0.4s;
-cursor:pointer;
-}
-
-.view-btn:hover{
-background:red;
-box-shadow:0 0 20px red;
-}
-
-/* FULL SCREEN VIEWER */
-
-.fullscreen-viewer{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.95);
-justify-content:center;
-align-items:center;
-z-index:9999;
-animation:fadeIn 0.4s;
-}
-
-.fullscreen-viewer img{
-max-width:95%;
-max-height:95%;
-border:3px solid red;
-border-radius:20px;
-box-shadow:0 0 40px red;
-animation:zoomIn 0.4s;
-}
-
-.close-btn{
-position:absolute;
-top:20px;
-right:30px;
-font-size:45px;
-color:white;
-cursor:pointer;
-transition:0.3s;
-}
-
-.close-btn:hover{
-color:red;
-transform:scale(1.2);
-}
-
-@keyframes fadeIn{
-from{opacity:0;}
-to{opacity:1;}
-}
-
-@keyframes zoomIn{
-from{
-transform:scale(0.7);
-opacity:0;
-}
-to{
-transform:scale(1);
-opacity:1;
-}
-}
-
-/* CONTACT */
-
-.contact{
-text-align:center;
-}
-
-.contact a{
-display:inline-block;
-margin:15px;
-padding:15px 35px;
-border:2px solid red;
-border-radius:30px;
-text-decoration:none;
-color:white;
-transition:0.4s;
-}
-
-.contact a:hover{
-background:red;
-box-shadow:0 0 25px red;
-}
-
-/* FOOTER */
-
-footer{
-padding:25px;
-text-align:center;
-border-top:1px solid red;
-background:#050505;
-}
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-.hero h1{
-font-size:38px;
-}
-
-nav{
-padding:15px 20px;
-}
-
-nav ul{
-display:none;
-}
-
-.hero img{
-width:180px;
-height:180px;
-}
-
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>SLBSK DIGITAL CREATION | Creative Digital Agency</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="SLBSK DIGITAL CREATION - Premium creative agency specializing in Graphic Design, Branding, 3D Design, Video Editing, and Website Development">
+    <meta name="keywords" content="Graphic Design Sri Lanka, Logo Design, 3D Design, Video Editing, Digital Agency, Web Development">
+    <meta name="author" content="SLBSK DIGITAL CREATION">
+    <!-- Favicon with Logo -->
+    <link rel="icon" type="image/png" href="YOUR-LOGO.png">
+    <link rel="apple-touch-icon" href="YOUR-LOGO.png">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #050505; font-family: 'Poppins', 'Inter', 'Space Grotesk', sans-serif; color: #FFFFFF; overflow-x: hidden; }
+        
+        /* Custom Cursor */
+        .cursor-dot { width: 8px; height: 8px; background: #00E5FF; border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); box-shadow: 0 0 15px #00E5FF; }
+        .cursor-outline { width: 40px; height: 40px; border: 1.5px solid rgba(0, 229, 255, 0.6); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); backdrop-filter: blur(4px); }
+        @media (max-width: 768px) { .cursor-dot, .cursor-outline { display: none; } body { cursor: auto; } }
+        
+        /* Loader with Logo */
+        .loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, #0a0a0a, #000000); display: flex; justify-content: center; align-items: center; z-index: 10000; transition: opacity 1s ease; }
+        .loader-content { text-align: center; }
+        .loader-logo { width: 100px; height: 100px; margin: 0 auto 20px; animation: logoSpin 1.5s ease-in-out infinite alternate; }
+        .loader-logo img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 20px #00E5FF); }
+        @keyframes logoSpin { 0% { transform: scale(0.9); filter: drop-shadow(0 0 5px #00E5FF); } 100% { transform: scale(1.1); filter: drop-shadow(0 0 30px #8A2BE2); } }
+        .logo-reveal { font-size: 2rem; font-weight: 900; background: linear-gradient(135deg, #00E5FF, #8A2BE2, #FF00FF); -webkit-background-clip: text; background-clip: text; color: transparent; letter-spacing: 4px; margin-top: 20px; }
+        .loader-sub { margin-top: 15px; letter-spacing: 6px; color: #00E5FF; font-size: 0.8rem; }
+        .loader-progress { width: 250px; height: 2px; background: rgba(255,255,255,0.2); margin: 30px auto 0; border-radius: 2px; overflow: hidden; }
+        .loader-progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #00E5FF, #8A2BE2); animation: loadProgress 2s ease-out forwards; }
+        @keyframes loadProgress { 0% { width: 0%; } 100% { width: 100%; } }
+        
+        /* Navbar with Logo */
+        .navbar { position: fixed; top: 20px; left: 5%; width: 90%; background: rgba(5,5,5,0.65); backdrop-filter: blur(20px); border-radius: 80px; padding: 10px 35px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; border: 1px solid rgba(0,229,255,0.4); transition: all 0.3s; }
+        .navbar.scrolled { top: 10px; background: rgba(0,0,0,0.9); border-color: #00E5FF; }
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+        .nav-logo { width: 40px; height: 40px; }
+        .nav-logo img { width: 100%; height: 100%; object-fit: contain; border-radius: 12px; }
+        .logo-nav { font-size: 1.4rem; font-weight: 800; background: linear-gradient(45deg, #00E5FF, #8A2BE2); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: #00E5FF; text-shadow: 0 0 8px #00E5FF; }
+        .menu-icon { display: none; font-size: 1.8rem; cursor: pointer; }
+        @media (max-width: 800px) { 
+            .nav-links { display: none; } 
+            .menu-icon { display: block; } 
+            .navbar.responsive .nav-links { display: flex; flex-direction: column; position: absolute; top: 70px; right: 20px; background: rgba(0,0,0,0.95); padding: 25px; border-radius: 25px; gap: 1.5rem; border: 1px solid #00E5FF; }
+            .logo-nav { font-size: 1rem; }
+            .nav-logo { width: 35px; height: 35px; }
+        }
+        
+        /* Hero Section */
+        section { padding: 120px 5%; position: relative; }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
+        .hero-particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        .hero-content { z-index: 2; }
+        .hero-logo { width: 120px; height: 120px; margin: 0 auto 20px; animation: floatLogo 3s ease-in-out infinite; }
+        .hero-logo img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 20px #00E5FF); }
+        @keyframes floatLogo { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+        .hero-content h1 { font-size: 3.5rem; font-weight: 900; background: linear-gradient(135deg, #FFFFFF, #00E5FF, #8A2BE2); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1rem; }
+        .hero-content p { font-size: 1.3rem; color: rgba(255,255,255,0.9); margin-bottom: 2rem; }
+        .btn { padding: 14px 38px; border-radius: 50px; font-weight: 600; text-decoration: none; transition: 0.4s; border: 1px solid #00E5FF; background: transparent; color: white; display: inline-block; margin: 0 10px; }
+        .btn-primary { background: linear-gradient(45deg, #00E5FF, #8A2BE2); border: none; color: #000; }
+        .btn:hover { transform: translateY(-5px); box-shadow: 0 0 30px rgba(0,229,255,0.6); }
+        .scroll-indicator { margin-top: 80px; animation: bounce 2s infinite; cursor: pointer; }
+        @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(15px);} }
+        
+        /* Glass Cards */
+        .glass-card { background: rgba(17,17,17,0.5); backdrop-filter: blur(16px); border-radius: 32px; border: 1px solid rgba(0,229,255,0.25); padding: 35px; transition: 0.4s; }
+        .glass-card:hover { border-color: #00E5FF; transform: translateY(-8px); }
+        .stats-grid, .services-grid, .portfolio-grid, .video-grid, .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 35px; margin-top: 60px; }
+        .service-card { background: rgba(17,17,17,0.6); backdrop-filter: blur(12px); border-radius: 28px; padding: 35px 20px; text-align: center; transition: 0.4s; border: 1px solid rgba(0,229,255,0.2); }
+        .service-card:hover { transform: translateY(-15px); box-shadow: 0 30px 50px rgba(0,229,255,0.3); border-color: #00E5FF; }
+        .service-card i { font-size: 3.5rem; color: #00E5FF; margin-bottom: 20px; }
+        
+        /* Video Cards with Thumbnail Preview */
+        .video-card {
+            background: rgba(17,17,17,0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0,229,255,0.2);
+            position: relative;
+        }
+        .video-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #00E5FF;
+            box-shadow: 0 25px 40px rgba(0,229,255,0.25);
+        }
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.1);
+        }
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .video-card:hover .play-overlay {
+            opacity: 1;
+        }
+        .play-overlay i {
+            font-size: 4rem;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            border-radius: 50%;
+            padding: 15px 18px;
+            box-shadow: 0 0 30px rgba(0,229,255,0.5);
+            transition: transform 0.3s;
+        }
+        .video-card:hover .play-overlay i {
+            transform: scale(1.1);
+        }
+        .video-info {
+            padding: 20px;
+            text-align: center;
+        }
+        .video-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #00E5FF;
+        }
+        .video-info p {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        .duration-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            color: white;
+            font-family: monospace;
+        }
+        
+        /* Portfolio */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; }
+        .portfolio-item { position: relative; overflow: hidden; border-radius: 28px; cursor: pointer; transition: 0.4s; }
+        .portfolio-item img { width: 100%; height: 300px; object-fit: cover; transition: 0.6s; border-radius: 28px; }
+        .portfolio-item:hover img { transform: scale(1.08); filter: brightness(1.15); box-shadow: 0 0 25px #00E5FF; }
+        
+        /* Portfolio Viewer */
+        .portfolio-viewer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(30px); z-index: 3000; display: none; justify-content: center; align-items: center; }
+        .viewer-img-container { width: 75%; max-width: 1000px; position: relative; }
+        .viewer-img { width: 100%; border-radius: 28px; transition: transform 0.2s; }
+        .viewer-controls { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; transform: translateY(-50%); }
+        .viewer-btn { background: rgba(0,0,0,0.7); backdrop-filter: blur(15px); padding: 14px 22px; border-radius: 60px; color: white; cursor: pointer; font-size: 1.5rem; border: 1px solid #00E5FF; transition: 0.2s; }
+        .viewer-btn:hover { background: #00E5FF; color: black; transform: scale(1.1); }
+        .close-viewer { position: absolute; top: 30px; right: 50px; font-size: 2rem; background: rgba(0,0,0,0.6); padding: 12px 24px; border-radius: 60px; cursor: pointer; z-index: 3100; }
+        .zoom-controls { position: absolute; bottom: 30px; right: 30px; display: flex; gap: 15px; }
+        .counter { position: absolute; bottom: 30px; left: 30px; background: rgba(0,0,0,0.6); padding: 10px 22px; border-radius: 50px; font-weight: 500; }
+        @media (max-width:768px){ .viewer-img-container{width:92%;} .viewer-btn{padding:8px 14px;font-size:1rem;} .close-viewer{top:15px;right:20px;padding:8px 16px;} }
+        
+        /* Video Modal */
+        .video-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); backdrop-filter: blur(35px); z-index: 4000; display: none; justify-content: center; align-items: center; }
+        .video-modal iframe { width: 80%; height: 70%; border-radius: 28px; box-shadow: 0 0 50px #00E5FF; }
+        .close-video { position: absolute; top: 40px; right: 60px; font-size: 2.5rem; cursor: pointer; color: white; background: rgba(0,0,0,0.5); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.3s; }
+        .close-video:hover { background: #ff0033; transform: scale(1.1); }
+        @media (max-width:768px){ .video-modal iframe{width:95%;height:50%;} .close-video{top:20px;right:20px;width:40px;height:40px;font-size:1.5rem;} }
+        
+        /* WhatsApp Sticky */
+        .whatsapp-sticky { position: fixed; bottom: 30px; right: 30px; background: linear-gradient(135deg, #25D366, #128C7E); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; z-index: 1100; box-shadow: 0 0 25px #25D366; transition: 0.3s; cursor: pointer; }
+        .whatsapp-sticky:hover { transform: scale(1.15); }
+        .back-to-top { position: fixed; bottom: 30px; left: 30px; background: #00E5FF; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1100; opacity: 0; transition: 0.3s; }
+        
+        /* Footer with Logo */
+        footer { text-align: center; padding: 50px 20px; background: #0a0a0a; border-top: 1px solid rgba(0,229,255,0.4); }
+        .footer-logo { width: 60px; height: 60px; margin: 0 auto 20px; }
+        .footer-logo img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 10px #00E5FF); }
+        .footer-links a { color: #00E5FF; margin: 0 18px; text-decoration: none; transition: 0.3s; }
+        .footer-links a:hover { text-shadow: 0 0 10px #00E5FF; }
+        
+        input, textarea { width: 100%; padding: 14px; margin: 12px 0; background: rgba(255,255,255,0.05); border: 1px solid rgba(0,229,255,0.5); border-radius: 20px; color: white; transition: 0.3s; }
+        input:focus, textarea:focus { border-color: #00E5FF; outline: none; box-shadow: 0 0 15px #00E5FF; }
+        .contact-form button { background: linear-gradient(45deg, #00E5FF, #8A2BE2); border: none; padding: 14px; border-radius: 50px; width: 100%; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.3s; }
+        .contact-form button:hover { transform: translateY(-2px); box-shadow: 0 0 20px #00E5FF; }
+        h2 { font-size: 2.8rem; text-align: center; }
+        @media (max-width:768px){ h2{font-size:2rem;} .hero-content h1{font-size:2rem;} .hero-content p{font-size:1rem;} section{padding:80px 5%;} .hero-logo{width:80px;height:80px;} }
+    </style>
 </head>
 <body>
 
-<div id="particles-js"></div>
+<div class="cursor-dot"></div>
+<div class="cursor-outline"></div>
 
-<!-- NAVBAR -->
-
-<nav>
-
-<div class="logo-text">
-SL BLACK SHADOW KING
+<!-- Loader with Logo -->
+<div class="loader" id="loader">
+    <div class="loader-content">
+        <div class="loader-logo">
+            <img src="YOUR-LOGO.png" alt="SLBSK Logo" id="loaderLogo">
+        </div>
+        <div class="logo-reveal">SLBSK DIGITAL CREATION</div>
+        <div class="loader-sub">✦ GRAPHIC DESIGN STUDIO ✦</div>
+        <div class="loader-progress"><div class="loader-progress-bar"></div></div>
+    </div>
 </div>
 
-<ul>
-<li><a href="#Home">Home</a></li>
-<li><a href="#About">About</a></li>
-<li><a href="#Designs">Designs</a></li>
-<li><a href="#Contact">Contact</a></li>
-</ul>
-
-</nav>
-
-<!-- HERO -->
-
-<section class="hero" id="home">
-
-<img src="YOUR-LOGO.png" alt="Logo">
-
-<h1>SL BLACK SHADOW KING</h1>
-
-<p>
-Future Digital Designer • AI Designer • Content Creator • Next Generation Designer • Graphic Designer
-</p>
-
-<div class="hero-buttons">
-
-<a href="https://www.facebook.com/profile.php?id=61579489185270&mibextid=ZbWKwL" class="btn">Facebook Page</a>
-
-<a href="https://wa.me/94776763805" class="btn">Official WhatsApp</a>
-
+<!-- Navbar with Logo -->
+<div class="navbar" id="navbar">
+    <div class="logo-container">
+        <div class="nav-logo">
+            <img src="YOUR-LOGO.png" alt="SLBSK Logo" id="navLogo">
+        </div>
+        <div class="logo-nav">SLBSK DIGITAL</div>
+    </div>
+    <div class="menu-icon" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#videos">Videos</a>
+        <a href="#contact">Contact</a>
+    </div>
 </div>
 
+<!-- Hero Section with Logo -->
+<section id="home" class="hero">
+    <canvas id="heroParticles" class="hero-particles"></canvas>
+    <div class="hero-content" data-aos="fade-up">
+        <div class="hero-logo">
+            <img src="YOUR-LOGO.png" alt="SLBSK Logo" id="heroLogo">
+        </div>
+        <h1>SLBSK DIGITAL CREATION</h1>
+        <p>"We Don't Just Design. We Create Digital Experiences."</p>
+        <div>
+            <a href="#portfolio" class="btn btn-primary">View Portfolio</a>
+            <a href="#contact" class="btn">Hire Us</a>
+        </div>
+        <div class="scroll-indicator" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </div>
 </section>
 
-<!-- ABOUT -->
-
-<section id="about">
-
-<h1 class="title">Our Services</h1>
-
-<div class="about-container">
-
-<div class="about-box">
-<h2>Grphic Designs</h2>
-<p>
-  We can create professional graphic designs for you at an affordable price.
-</p>
-</div>
-
-<div class="about-box">
-<h2>Digital Creation</h2>
-<p>
-Professional graphic designs, video edits, social media branding, and AI-generated concepts.
-</p>
-</div>
-
-<div class="about-box">
-<h2>Content Creation</h2>
-<p>
-Get content from us that can help you promote your business and change the minds of the next generation, all at a price that fits your budget.
-</p>
-</div>
-
-</div>
-
+<!-- About Section -->
+<section id="about" data-aos="fade-up">
+    <div class="glass-card" style="text-align:center; max-width:900px; margin:0 auto;">
+        <h2>About Us</h2>
+        <p style="margin-top:20px;">SLBSK DIGITAL CREATION is a creative digital agency specializing in Graphic Design, Branding, 3D Design, Video Editing, Social Media Design, and Website Development. We deliver world-class creative solutions for local and international clients with futuristic design approaches.</p>
+    </div>
+    <div class="stats-grid">
+        <div class="glass-card" data-aos="zoom-in"><i class="fas fa-project-diagram" style="font-size:3rem;"></i><h3 id="stat1">287+</h3><p>Projects Completed</p></div>
+        <div class="glass-card" data-aos="zoom-in" data-aos-delay="100"><i class="fas fa-smile"></i><h3 id="stat2">195+</h3><p>Happy Clients</p></div>
+        <div class="glass-card" data-aos="zoom-in" data-aos-delay="200"><i class="fas fa-calendar-alt"></i><h3 id="stat3">9+</h3><p>Experience Years</p></div>
+    </div>
 </section>
 
-<!-- DESIGNS -->
-
-<section id="designs">
-
-<h1 class="title">MY GRAPHIC DESIGNS</h1>
-
-<div class="design-gallery">
-
-<!-- DESIGN 1 -->
-
-<div class="design-card">
-<img src="design1.jpg">
-<div class="overlay">
-<h2>DESIGN 01</h2>
-<a onclick="openViewer('design1.jpg')" class="view-btn">OPEN</a>
-</div>
-</div>
-
-<!-- DESIGN 2 -->
-
-<div class="design-card">
-<img src="design2.jpg">
-<div class="overlay">
-<h2>DESIGN 02</h2>
-<a onclick="openViewer('design2.jpg')" class="view-btn">OPEN</a>
-</div>
-</div>
-
-<!-- DESIGN 3 -->
-
-<div class="design-card">
-<img src="design3.jpg">
-<div class="overlay">
-<h2>DESIGN 03</h2>
-<a onclick="openViewer('design3.jpg')" class="view-btn">OPEN</a>
-</div>
-</div>
-
-<!-- DESIGN 4 -->
-
-<div class="design-card">
-<img src="design4.jpg">
-<div class="overlay">
-<h2>DESIGN 04</h2>
-<a onclick="openViewer('design4.jpg')" class="view-btn">OPEN</a>
-</div>
-</div>
-
-<!-- DESIGN 5 -->
-
-<div class="design-card">
-<img src="design5.jpg">
-<div class="overlay">
-<h2>DESIGN 05</h2>
-<a onclick="openViewer('design5.jpg')" class="view-btn">OPEN</a>
-</div>
-</div>
-
-<!-- DESIGN 6 -->
-
-<div class="design-card">
-<img src="design6.jpg">
-<div class="overlay">
-<h2>DESIGN 06</h2>
-<a onclick="openViewer('design6.jpg')" class="view-btn">OPEN</a>
-</div>
-</div>
-
-<!-- DESIGN 7 -->
-
-<div class="design-card">
-<img src="design7.jpg">
-<div class="overlay">
-<h2>DESIGN 07</h2>
-<a onclick="openViewer('design7.jpg')" class="view-btn">OPEN</a>
-</div>
-</div>
-
-<!-- DESIGN 8 -->
-
-<div class="design-card">
-<img src="design8.jpg">
-<div class="overlay">
-<h2>DESIGN 08</h2>
-<a onclick="openViewer('design8.jpg')" class="view-btn">OPEN</a>
-</div>
-</div>
-
-<!-- DESIGN 9 -->
-
-<div class="design-card">
-<img src="design9.jpg">
-<div class="overlay">
-<h2>DESIGN 09</h2>
-<a onclick="openViewer('design9.jpg')" class="view-btn">OPEN</a>
-</div>
-</div>
-
-<!-- DESIGN 10 -->
-
-<div class="design-card">
-<img src="design10.jpg">
-<div class="overlay">
-<h2>DESIGN 10</h2>
-<a onclick="openViewer('design10.jpg')" class="view-btn">OPEN</a>
-</div>
-</div>
-
-</div>
-
+<!-- Services Section -->
+<section id="services" data-aos="fade-up">
+    <h2>Our Services</h2>
+    <div class="services-grid">
+        <div class="service-card"><i class="fas fa-pen-nib"></i><h3>Graphic Design</h3><p>Stunning visuals & brand identity</p></div>
+        <div class="service-card"><i class="fas fa-trademark"></i><h3>Logo Design</h3><p>Memorable brand marks</p></div>
+        <div class="service-card"><i class="fas fa-cube"></i><h3>3D Design</h3><p>Immersive 3D modelling</p></div>
+        <div class="service-card"><i class="fas fa-video"></i><h3>Video Editing</h3><p>Cinematic storytelling</p></div>
+        <div class="service-card"><i class="fas fa-code"></i><h3>Website Development</h3><p>High-performance web apps</p></div>
+        <div class="service-card"><i class="fab fa-instagram"></i><h3>Social Media Branding</h3><p>Growth-driven strategies</p></div>
+    </div>
 </section>
 
-<!-- CONTACT -->
-
-<section id="contact">
-
-<h1 class="title">CONTACT</h1>
-
-<div class="contact">
-
-<a href="https://youtube.com/@slblackshadowkingmixer?si=68AOi5gRV8TVDQYG">YouTube Channel</a>
-
-<a href="https://www.facebook.com/profile.php?id=61579489185270&mibextid=ZbWKwL">Facebook Page</a>
-
-<a href="https://wa.me/94776763805">Official WhatsApp</a>
-
-<a href="https://www.facebook.com/share/1DWTDMNMhr/">Facebook Official page</a>
-
-<a href="https://youtube.com/@slblackshadowking?si=BZypN_wEE9lBScm1">YouTube Official Channel</a>
-
-<a href="https://www.tiktok.com/@.sl.black.shadow.k?_r=1&_t=ZS-96Oykms7tQn">Tiktok</a>
-</div>
-
+<!-- Portfolio Section -->
+<section id="portfolio" data-aos="fade-up">
+    <h2>Graphic Design Portfolio</h2>
+    <div class="portfolio-grid" id="portfolioGrid"></div>
+    <p style="text-align:center; margin-top:30px; color:#888; font-size:0.9rem;" id="portfolioStatus"></p>
 </section>
 
-<!-- FOOTER -->
+<!-- Video Showcase Section with Thumbnail Previews -->
+<section id="videos" data-aos="fade-up">
+    <h2>Video Showcase</h2>
+    <p style="text-align:center; color:#aaa; margin-bottom:30px;">Click any video to watch the full reel</p>
+    <div class="video-grid" id="videoGrid"></div>
+</section>
 
+<!-- Social Media Section -->
+<section id="social" data-aos="fade-up">
+    <h2>Connect With Us</h2>
+    <div class="social-grid">
+        <a href="https://www.facebook.com/share/1DtBAY9kXx/" target="_blank" class="glass-card" style="text-align:center; text-decoration:none; color:white;">
+            <i class="fab fa-facebook-f" style="font-size:3rem; color:#1877F2;"></i>
+            <h3>Facebook</h3>
+            <p>Follow our page</p>
+        </a>
+        <a href="https://www.instagram.com/slblackshadowking2026?igsh=YzZhY3FzaXdjdGtt" target="_blank" class="glass-card" style="text-align:center; text-decoration:none; color:white;">
+            <i class="fab fa-instagram" style="font-size:3rem; color:#E4405F;"></i>
+            <h3>Instagram</h3>
+            <p>@slblackshadowking2026</p>
+        </a>
+        <div class="glass-card" style="text-align:center;">
+            <i class="fab fa-whatsapp" style="font-size:3rem; color:#25D366;"></i>
+            <h3>WhatsApp</h3>
+            <p>Message |@SL BLACK SHADOW KING|</p>
+            <a href="https://wa.me/94776763805" class="btn" style="margin-top:15px; display:inline-block;">Chat Now</a>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" data-aos="fade-up">
+    <div class="glass-card" style="max-width:600px; margin:0 auto;">
+        <h2>Send a Message</h2>
+        <form id="contactForm" class="contact-form">
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email Address" required>
+            <textarea id="message" rows="4" placeholder="Your Message"></textarea>
+            <button type="submit">Send Message <i class="fas fa-paper-plane"></i></button>
+        </form>
+        <div id="formFeedback" style="margin-top:15px; text-align:center;"></div>
+    </div>
+</section>
+
+<!-- WhatsApp Dedicated Area -->
+<section style="padding: 20px 5% 80px; text-align:center;">
+    <div class="glass-card" style="display:inline-block; max-width:500px;">
+        <i class="fab fa-whatsapp" style="font-size:3rem; color:#25D366;"></i>
+        <p style="margin:15px 0; font-size:1.2rem;">Message > |@SL BLACK SHADOW KING || on WhatsApp</p>
+        <a href="https://wa.me/94776763805" class="btn btn-primary">Open WhatsApp Chat</a>
+    </div>
+</section>
+
+<!-- Footer with Logo -->
 <footer>
-© 2026 SL BLACK SHADOW KING | ALL RIGHTS RESERVED
+    <div class="footer-logo">
+        <img src="YOUR-LOGO.png" alt="SLBSK Logo" id="footerLogo">
+    </div>
+    <p>SLBSK DIGITAL CREATION © 2026 — Graphic Design Studio</p>
+    <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="https://www.facebook.com/share/1DtBAY9kXx/" target="_blank">Facebook</a>
+        <a href="https://www.instagram.com/slblackshadowking2026" target="_blank">Instagram</a>
+        <a href="https://wa.me/94776763805">WhatsApp</a>
+    </div>
 </footer>
 
-<!-- FULL SCREEN VIEWER -->
+<!-- Sticky WhatsApp Button -->
+<div class="whatsapp-sticky" onclick="window.open('https://wa.me/94776763805','_blank')"><i class="fab fa-whatsapp"></i></div>
+<div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
 
-<div id="fullscreenViewer" class="fullscreen-viewer">
-
-<span class="close-btn" onclick="closeViewer()">✕</span>
-
-<img id="fullscreenImage" src="">
-
+<!-- Portfolio Viewer Modal -->
+<div id="portfolioViewer" class="portfolio-viewer">
+    <div class="close-viewer" onclick="closeViewer()">✕</div>
+    <div class="viewer-img-container">
+        <img id="viewerImg" class="viewer-img" alt="Portfolio">
+        <div class="viewer-controls">
+            <div class="viewer-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></div>
+            <div class="viewer-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></div>
+        </div>
+        <div class="counter" id="imgCounter">1 / 10</div>
+        <div class="zoom-controls">
+            <div class="viewer-btn" id="zoomInBtn"><i class="fas fa-search-plus"></i></div>
+            <div class="viewer-btn" id="zoomOutBtn"><i class="fas fa-search-minus"></i></div>
+        </div>
+    </div>
 </div>
 
-<!-- PARTICLES -->
+<!-- Video Modal -->
+<div id="videoModal" class="video-modal">
+    <div class="close-video" onclick="closeVideoModal()"><i class="fas fa-times"></i></div>
+    <iframe id="videoFrame" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-
-particlesJS("particles-js", {
-
-"particles": {
-
-"number": {
-"value": 100
-},
-
-"color": {
-"value": "#ff0000"
-},
-
-"shape": {
-"type": "circle"
-},
-
-"opacity": {
-"value": 0.5
-},
-
-"size": {
-"value": 3
-},
-
-"line_linked": {
-"enable": true,
-"distance": 150,
-"color": "#ff0000",
-"opacity": 0.4,
-"width": 1
-},
-
-"move": {
-"enable": true,
-"speed": 3
-}
-
-}
-
-});
-
-/* FULL SCREEN IMAGE VIEWER */
-
-function openViewer(imageSrc){
-
-document.getElementById("fullscreenViewer").style.display = "flex";
-
-document.getElementById("fullscreenImage").src = imageSrc;
-
-}
-
-function closeViewer(){
-
-document.getElementById("fullscreenViewer").style.display = "none";
-
-}
-
+    AOS.init({ duration: 1000, once: false, mirror: true });
+    
+    // ============================================
+    // VIDEO DATA with YouTube Video IDs and Thumbnails
+    // ============================================
+    const videosData = [
+        { id: "OJ6LrEvZu_c", title: "Creative Design Reel", duration: "0:45" },
+        { id: "dqFaMuwUzCg", title: "Motion Graphics Showcase", duration: "0:32" },
+        { id: "a5ZcFfWA6Wo", title: "Brand Identity Design", duration: "0:58" },
+        { id: "snKYZmU77eU", title: "3D Animation Preview", duration: "0:27" },
+        { id: "Ug6Bp0vNcKs", title: "Social Media Content", duration: "0:41" },
+        { id: "nMZxQuMzKYA", title: "Visual Effects Reel", duration: "0:39" }
+    ];
+    
+    // Function to get YouTube Thumbnail URL
+    function getYouTubeThumbnail(videoId) {
+        return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    }
+    
+    // Function to get YouTube Embed URL
+    function getYouTubeEmbedUrl(videoId) {
+        return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+    }
+    
+    // Load Video Grid with Thumbnails
+    const videoGrid = document.getElementById('videoGrid');
+    
+    videosData.forEach((video, index) => {
+        const card = document.createElement('div');
+        card.className = 'video-card';
+        card.setAttribute('data-aos', 'fade-up');
+        card.setAttribute('data-aos-delay', (index * 50));
+        
+        card.innerHTML = `
+            <div class="video-thumbnail">
+                <img src="${getYouTubeThumbnail(video.id)}" 
+                     alt="${video.title}"
+                     onerror="this.src='https://img.youtube.com/vi/${video.id}/hqdefault.jpg'">
+                <div class="play-overlay">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+                <div class="duration-badge">
+                    <i class="far fa-clock"></i> ${video.duration}
+                </div>
+            </div>
+            <div class="video-info">
+                <h3>${video.title}</h3>
+                <p><i class="fab fa-youtube"></i> YouTube Shorts</p>
+            </div>
+        `;
+        
+        card.onclick = () => openVideoModal(getYouTubeEmbedUrl(video.id));
+        videoGrid.appendChild(card);
+    });
+    
+    // ============================================
+    // YOUR GRAPHIC DESIGN IMAGES (design1.jpg to design10.jpg)
+    // ============================================
+    const portfolioImages = [
+        "design1.jpg", "design2.jpg", "design3.jpg", "design4.jpg", "design5.jpg",
+        "design6.jpg", "design7.jpg", "design8.jpg", "design9.jpg", "design10.jpg"
+    ];
+    
+    // Load Portfolio into Grid
+    const portfolioGrid = document.getElementById('portfolioGrid');
+    const statusMsg = document.getElementById('portfolioStatus');
+    let loadedCount = 0;
+    
+    portfolioImages.forEach((src, index) => {
+        const item = document.createElement('div');
+        item.className = 'portfolio-item';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = `Graphic Design ${index+1}`;
+        img.loading = "lazy";
+        
+        img.onerror = function() {
+            this.src = "https://placehold.co/600x800/1a1a2e/00E5FF?text=Image+Not+Found";
+            loadedCount++;
+            if(loadedCount === portfolioImages.length) {
+                statusMsg.innerHTML = "⚠️ Please make sure design1.jpg to design10.jpg are in the same folder";
+                statusMsg.style.color = "#ffaa00";
+            }
+        };
+        
+        img.onload = function() {
+            loadedCount++;
+            if(loadedCount === portfolioImages.length) {
+                statusMsg.innerHTML = "✓ All portfolio images loaded successfully!";
+                statusMsg.style.color = "#00E5FF";
+                setTimeout(() => statusMsg.style.opacity = "0", 3000);
+            }
+        };
+        
+        item.appendChild(img);
+        item.onclick = () => openViewer(index);
+        portfolioGrid.appendChild(item);
+    });
+    
+    // Portfolio Viewer Logic
+    let currentIndex = 0;
+    let currentZoom = 1;
+    const viewer = document.getElementById('portfolioViewer');
+    const viewerImg = document.getElementById('viewerImg');
+    const counterSpan = document.getElementById('imgCounter');
+    
+    function openViewer(index) {
+        currentIndex = index;
+        currentZoom = 1;
+        updateViewerImage();
+        viewer.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function updateViewerImage() {
+        viewerImg.src = portfolioImages[currentIndex];
+        viewerImg.style.transform = `scale(${currentZoom})`;
+        counterSpan.innerText = `${currentIndex+1} / ${portfolioImages.length}`;
+    }
+    
+    function nextImage() { currentIndex = (currentIndex + 1) % portfolioImages.length; updateViewerImage(); }
+    function prevImage() { currentIndex = (currentIndex - 1 + portfolioImages.length) % portfolioImages.length; updateViewerImage(); }
+    function closeViewer() { viewer.style.display = 'none'; document.body.style.overflow = 'auto'; currentZoom = 1; }
+    
+    document.getElementById('nextBtn').onclick = nextImage;
+    document.getElementById('prevBtn').onclick = prevImage;
+    document.getElementById('zoomInBtn').onclick = () => { currentZoom = Math.min(currentZoom + 0.2, 3); viewerImg.style.transform = `scale(${currentZoom})`; };
+    document.getElementById('zoomOutBtn').onclick = () => { currentZoom = Math.max(currentZoom - 0.2, 0.6); viewerImg.style.transform = `scale(${currentZoom})`; };
+    window.closeViewer = closeViewer;
+    
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+        if(viewer.style.display === 'flex') {
+            if(e.key === 'ArrowRight') nextImage();
+            if(e.key === 'ArrowLeft') prevImage();
+            if(e.key === 'Escape') closeViewer();
+        }
+        if(videoModal.style.display === 'flex' && e.key === 'Escape') closeVideoModal();
+    });
+    
+    // Mobile Swipe
+    let touchStartX = 0;
+    viewerImg.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
+    viewerImg.addEventListener('touchend', (e) => { let diff = e.changedTouches[0].screenX - touchStartX; if(diff > 50) prevImage(); else if(diff < -50) nextImage(); });
+    
+    // Video Modal Functions
+    const videoModal = document.getElementById('videoModal');
+    const videoFrame = document.getElementById('videoFrame');
+    
+    function openVideoModal(url) { 
+        videoFrame.src = url; 
+        videoModal.style.display = 'flex'; 
+        document.body.style.overflow = 'hidden'; 
+    }
+    
+    function closeVideoModal() { 
+        videoFrame.src = ''; 
+        videoModal.style.display = 'none'; 
+        document.body.style.overflow = 'auto'; 
+    }
+    window.openVideoModal = openVideoModal;
+    window.closeVideoModal = closeVideoModal;
+    
+    // Contact Form
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+        if(!name || !email || !message) {
+            document.getElementById('formFeedback').innerHTML = '<span style="color:#ff6666;">⚠️ All fields are required!</span>';
+            return;
+        }
+        if(!email.includes('@') || !email.includes('.')) {
+            document.getElementById('formFeedback').innerHTML = '<span style="color:#ff6666;">⚠️ Please enter a valid email!</span>';
+            return;
+        }
+        document.getElementById('formFeedback').innerHTML = '<span style="color:#00E5FF;">✨ Message sent! We will contact you soon.</span>';
+        document.getElementById('contactForm').reset();
+        setTimeout(() => document.getElementById('formFeedback').innerHTML = '', 3000);
+    });
+    
+    // Back to Top
+    const backBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        if(window.scrollY > 500) backBtn.style.opacity = '1';
+        else backBtn.style.opacity = '0';
+        if(window.scrollY > 50) document.getElementById('navbar').classList.add('scrolled');
+        else document.getElementById('navbar').classList.remove('scrolled');
+    });
+    backBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Mobile Menu
+    window.toggleMenu = function() { document.querySelector('.navbar').classList.toggle('responsive'); };
+    
+    // Particle System
+    function initParticles() {
+        const canvas = document.getElementById('heroParticles');
+        if(!canvas) return;
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        for(let i = 0; i < 120; i++) {
+            particles.push({
+                x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1, vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5,
+                color: `rgba(0, ${Math.floor(150 + Math.random() * 105)}, 255, ${Math.random() * 0.5 + 0.2})`
+            });
+        }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color; ctx.fill();
+                p.x += p.vx; p.y += p.vy;
+                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+    }
+    initParticles();
+    
+    // Hide Loader
+    setTimeout(() => { const loader = document.getElementById('loader'); loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 1000); }, 2300);
+    
+    // Logo Error Handling
+    const logoImages = ['loaderLogo', 'navLogo', 'heroLogo', 'footerLogo'];
+    logoImages.forEach(id => {
+        const img = document.getElementById(id);
+        if(img) {
+            img.onerror = function() {
+                this.style.display = 'none';
+                const parent = this.parentElement;
+                if(parent && parent.classList.contains('loader-logo')) {
+                    parent.innerHTML = '<div style="width:100px;height:100px;background:linear-gradient(45deg,#00E5FF,#8A2BE2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;">SL</div>';
+                }
+            };
+        }
+    });
+    
+    // Statistics Counter
+    const stat1 = document.getElementById('stat1'), stat2 = document.getElementById('stat2'), stat3 = document.getElementById('stat3');
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                let s1=0,s2=0,s3=0;
+                const t1=287,t2=195,t3=9;
+                const interval = setInterval(() => {
+                    if(s1 < t1) { s1 += Math.ceil(t1/45); stat1.innerText = s1 + '+'; }
+                    if(s2 < t2) { s2 += Math.ceil(t2/45); stat2.innerText = s2 + '+'; }
+                    if(s3 < t3) { s3 += Math.ceil(t3/45); stat3.innerText = s3 + '+'; }
+                    if(s1 >= t1 && s2 >= t2 && s3 >= t3) clearInterval(interval);
+                }, 25);
+                statsObserver.disconnect();
+            }
+        });
+    }, { threshold: 0.5 });
+    statsObserver.observe(document.getElementById('about'));
 </script>
-
 </body>
 </html>
