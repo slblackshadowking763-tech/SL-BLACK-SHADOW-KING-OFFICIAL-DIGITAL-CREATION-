@@ -206,6 +206,111 @@
         .contact-form button:hover { transform: translateY(-2px); box-shadow: 0 0 20px #00E5FF; }
         h2 { font-size: 2.8rem; text-align: center; }
         @media (max-width:768px){ h2{font-size:2rem;} .hero-content h1{font-size:2rem;} .hero-content p{font-size:1rem;} section{padding:80px 5%;} .hero-logo{width:80px;height:80px;} }
+        
+        /* Gen Z Packages Custom Styles - Enhanced Glass Effect */
+        .genz-packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        .genz-package-card {
+            background: rgba(20, 20, 35, 0.45);
+            backdrop-filter: blur(18px);
+            border-radius: 40px;
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            padding: 35px 25px;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .genz-package-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,229,255,0.15), transparent);
+            transition: left 0.7s ease;
+        }
+        .genz-package-card:hover::before {
+            left: 100%;
+        }
+        .genz-package-card:hover {
+            transform: translateY(-12px);
+            border-color: #00E5FF;
+            box-shadow: 0 30px 50px rgba(0, 229, 255, 0.35);
+            background: rgba(25, 25, 45, 0.6);
+        }
+        .package-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 10px rgba(255,215,0,0.5);
+        }
+        .price-tag {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #00E5FF, #8A2BE2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 15px 0;
+        }
+        .feature-list {
+            text-align: left;
+            margin: 25px 0;
+            padding-left: 0;
+        }
+        .feature-list li {
+            list-style: none;
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            color: #eee;
+        }
+        .feature-list li i {
+            color: #00E5FF;
+            width: 22px;
+            font-size: 1rem;
+        }
+        .order-form-group {
+            margin-bottom: 20px;
+        }
+        .order-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #00E5FF;
+        }
+        select {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(0,229,255,0.5);
+            border-radius: 20px;
+            color: white;
+            cursor: pointer;
+        }
+        select option {
+            background: #0a0a0a;
+        }
+        .btn-glow {
+            background: linear-gradient(45deg, #00E5FF, #8A2BE2);
+            border: none;
+            color: #000;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -244,7 +349,7 @@
     </div>
 </div>
 
-<!-- Hero Section with Logo -->
+<!-- Hero Section -->
 <section id="home" class="hero">
     <canvas id="heroParticles" class="hero-particles"></canvas>
     <div class="hero-content" data-aos="fade-up">
@@ -296,11 +401,98 @@
     <p style="text-align:center; margin-top:30px; color:#888; font-size:0.9rem;" id="portfolioStatus"></p>
 </section>
 
-<!-- Video Showcase Section with Thumbnail Previews -->
+<!-- Video Showcase Section -->
 <section id="videos" data-aos="fade-up">
     <h2>Video Showcase</h2>
     <p style="text-align:center; color:#aaa; margin-bottom:30px;">Click any video to watch the full reel</p>
     <div class="video-grid" id="videoGrid"></div>
+</section>
+
+<!-- GEN Z LINK PACKAGES SECTION - Enhanced Glass Effect -->
+<section id="genz-packages" data-aos="fade-up">
+    <h2>🎉 Gen Z Link Packages</h2>
+    <p style="text-align:center; color:#aaa; margin-bottom:20px;">"Choose the perfect digital surprise package for your loved ones."</p>
+    
+    <div class="genz-packages-grid">
+        <!-- Basic Package -->
+        <div class="genz-package-card" data-aos="fade-up" data-aos-delay="50">
+            <i class="fas fa-star" style="font-size:2.5rem; color:#00E5FF; margin-bottom:15px; display:block;"></i>
+            <h3 style="font-size:1.8rem;">🌟 Basic Package</h3>
+            <div class="price-tag">Rs. 800</div>
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> 1 Photo</li>
+                <li><i class="fas fa-music"></i> Background Music</li>
+                <li><i class="fas fa-envelope"></i> Custom Message</li>
+                <li><i class="fas fa-chart-line"></i> Basic Animations</li>
+            </ul>
+            <button class="btn btn-primary select-package-btn" data-package="Basic Package (Rs. 800)" style="width:100%;">Choose Basic</button>
+        </div>
+        
+        <!-- Premium Package -->
+        <div class="genz-package-card" data-aos="fade-up" data-aos-delay="100" style="border-color: rgba(0,229,255,0.6);">
+            <div class="package-badge">⭐ Most Popular</div>
+            <i class="fas fa-gem" style="font-size:2.5rem; color:#00E5FF; margin-bottom:15px; display:block;"></i>
+            <h3 style="font-size:1.8rem;">💎 Premium Package</h3>
+            <div class="price-tag">Rs. 1200</div>
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> Photos + Videos</li>
+                <li><i class="fas fa-music"></i> Background Music</li>
+                <li><i class="fas fa-magic"></i> Smooth Animations</li>
+                <li><i class="fas fa-hourglass-half"></i> Countdown Timer</li>
+                <li><i class="fas fa-palette"></i> Personalized Design</li>
+            </ul>
+            <button class="btn btn-primary select-package-btn" data-package="Premium Package (Rs. 1200)" style="width:100%;">Choose Premium</button>
+        </div>
+        
+        <!-- Ultimate Package -->
+        <div class="genz-package-card" data-aos="fade-up" data-aos-delay="150">
+            <div class="package-badge" style="background: linear-gradient(135deg, #FF4500, #FF1493);">🔥 Best Value</div>
+            <i class="fas fa-rocket" style="font-size:2.5rem; color:#00E5FF; margin-bottom:15px; display:block;"></i>
+            <h3 style="font-size:1.8rem;">🚀 Ultimate Package</h3>
+            <div class="price-tag">Rs. 2000</div>
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> Everything in Premium</li>
+                <li><i class="fas fa-brush"></i> Fully Custom Design</li>
+                <li><i class="fas fa-film"></i> Premium Effects & Transitions</li>
+                <li><i class="fas fa-qrcode"></i> QR Code Access</li>
+                <li><i class="fas fa-sync-alt"></i> Free Future Update</li>
+                <li><i class="fas fa-gift"></i> Unique Surprise Experience</li>
+            </ul>
+            <button class="btn btn-primary select-package-btn" data-package="Ultimate Package (Rs. 2000)" style="width:100%;">Choose Ultimate</button>
+        </div>
+    </div>
+</section>
+
+<!-- Order Your Gen Z Link Section -->
+<section id="order-genz" data-aos="fade-up">
+    <div class="glass-card" style="max-width:700px; margin:0 auto;">
+        <h2 style="font-size:2rem;">Order Your Gen Z Link</h2>
+        <form id="genzOrderForm" class="contact-form">
+            <div class="order-form-group">
+                <label><i class="fas fa-user"></i> Customer Name</label>
+                <input type="text" id="genzName" placeholder="Full Name" required>
+            </div>
+            <div class="order-form-group">
+                <label><i class="fab fa-whatsapp"></i> WhatsApp Number</label>
+                <input type="tel" id="genzWhatsapp" placeholder="e.g., 94771234567" required>
+            </div>
+            <div class="order-form-group">
+                <label><i class="fas fa-box"></i> Selected Package</label>
+                <select id="genzPackage" required>
+                    <option value="">-- Select a Package --</option>
+                    <option value="Basic Package (Rs. 800)">🌟 Basic Package - Rs. 800</option>
+                    <option value="Premium Package (Rs. 1200)">💎 Premium Package - Rs. 1200 (Most Popular)</option>
+                    <option value="Ultimate Package (Rs. 2000)">🚀 Ultimate Package - Rs. 2000 (Best Value)</option>
+                </select>
+            </div>
+            <div class="order-form-group">
+                <label><i class="fas fa-comment-dots"></i> Requirements / Message</label>
+                <textarea id="genzRequirements" rows="4" placeholder="Tell us any special requests, design preferences, or details..."></textarea>
+            </div>
+            <button type="submit" id="sendOrderBtn" style="background: linear-gradient(45deg, #25D366, #128C7E);"><i class="fab fa-whatsapp"></i> Send Order on WhatsApp</button>
+        </form>
+        <div id="genzFormFeedback" style="margin-top:20px; text-align:center;"></div>
+    </div>
 </section>
 
 <!-- Social Media Section -->
@@ -396,9 +588,7 @@
 <script>
     AOS.init({ duration: 1000, once: false, mirror: true });
     
-    // ============================================
-    // VIDEO DATA with YouTube Video IDs and Thumbnails
-    // ============================================
+    // VIDEO DATA
     const videosData = [
         { id: "OJ6LrEvZu_c", title: "Creative Design Reel", duration: "0:45" },
         { id: "dqFaMuwUzCg", title: "Motion Graphics Showcase", duration: "0:32" },
@@ -408,56 +598,29 @@
         { id: "nMZxQuMzKYA", title: "Visual Effects Reel", duration: "0:39" }
     ];
     
-    // Function to get YouTube Thumbnail URL
-    function getYouTubeThumbnail(videoId) {
-        return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-    }
+    function getYouTubeThumbnail(videoId) { return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`; }
+    function getYouTubeEmbedUrl(videoId) { return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`; }
     
-    // Function to get YouTube Embed URL
-    function getYouTubeEmbedUrl(videoId) {
-        return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
-    }
-    
-    // Load Video Grid with Thumbnails
     const videoGrid = document.getElementById('videoGrid');
-    
     videosData.forEach((video, index) => {
         const card = document.createElement('div');
         card.className = 'video-card';
         card.setAttribute('data-aos', 'fade-up');
         card.setAttribute('data-aos-delay', (index * 50));
-        
         card.innerHTML = `
             <div class="video-thumbnail">
-                <img src="${getYouTubeThumbnail(video.id)}" 
-                     alt="${video.title}"
-                     onerror="this.src='https://img.youtube.com/vi/${video.id}/hqdefault.jpg'">
-                <div class="play-overlay">
-                    <i class="fas fa-play-circle"></i>
-                </div>
-                <div class="duration-badge">
-                    <i class="far fa-clock"></i> ${video.duration}
-                </div>
+                <img src="${getYouTubeThumbnail(video.id)}" alt="${video.title}" onerror="this.src='https://img.youtube.com/vi/${video.id}/hqdefault.jpg'">
+                <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                <div class="duration-badge"><i class="far fa-clock"></i> ${video.duration}</div>
             </div>
-            <div class="video-info">
-                <h3>${video.title}</h3>
-                <p><i class="fab fa-youtube"></i> YouTube Shorts</p>
-            </div>
+            <div class="video-info"><h3>${video.title}</h3><p><i class="fab fa-youtube"></i> YouTube Shorts</p></div>
         `;
-        
         card.onclick = () => openVideoModal(getYouTubeEmbedUrl(video.id));
         videoGrid.appendChild(card);
     });
     
-    // ============================================
-    // YOUR GRAPHIC DESIGN IMAGES (design1.jpg to design10.jpg)
-    // ============================================
-    const portfolioImages = [
-        "design1.jpg", "design2.jpg", "design3.jpg", "design4.jpg", "design5.jpg",
-        "design6.jpg", "design7.jpg", "design8.jpg", "design9.jpg", "design10.jpg"
-    ];
-    
-    // Load Portfolio into Grid
+    // Portfolio Images
+    const portfolioImages = ["design1.jpg", "design2.jpg", "design3.jpg", "design4.jpg", "design5.jpg", "design6.jpg", "design7.jpg", "design8.jpg", "design9.jpg", "design10.jpg"];
     const portfolioGrid = document.getElementById('portfolioGrid');
     const statusMsg = document.getElementById('portfolioStatus');
     let loadedCount = 0;
@@ -469,91 +632,34 @@
         img.src = src;
         img.alt = `Graphic Design ${index+1}`;
         img.loading = "lazy";
-        
-        img.onerror = function() {
-            this.src = "https://placehold.co/600x800/1a1a2e/00E5FF?text=Image+Not+Found";
-            loadedCount++;
-            if(loadedCount === portfolioImages.length) {
-                statusMsg.innerHTML = "⚠️ Please make sure design1.jpg to design10.jpg are in the same folder";
-                statusMsg.style.color = "#ffaa00";
-            }
-        };
-        
-        img.onload = function() {
-            loadedCount++;
-            if(loadedCount === portfolioImages.length) {
-                statusMsg.innerHTML = "✓ All portfolio images loaded successfully!";
-                statusMsg.style.color = "#00E5FF";
-                setTimeout(() => statusMsg.style.opacity = "0", 3000);
-            }
-        };
-        
+        img.onerror = function() { this.src = "https://placehold.co/600x800/1a1a2e/00E5FF?text=Image+Not+Found"; loadedCount++; if(loadedCount === portfolioImages.length) statusMsg.innerHTML = "⚠️ Please make sure design1.jpg to design10.jpg are in the same folder"; };
+        img.onload = function() { loadedCount++; if(loadedCount === portfolioImages.length) { statusMsg.innerHTML = "✓ All portfolio images loaded successfully!"; setTimeout(() => statusMsg.style.opacity = "0", 3000); } };
         item.appendChild(img);
         item.onclick = () => openViewer(index);
         portfolioGrid.appendChild(item);
     });
     
-    // Portfolio Viewer Logic
-    let currentIndex = 0;
-    let currentZoom = 1;
+    // Viewer Logic
+    let currentIndex = 0, currentZoom = 1;
     const viewer = document.getElementById('portfolioViewer');
     const viewerImg = document.getElementById('viewerImg');
     const counterSpan = document.getElementById('imgCounter');
-    
-    function openViewer(index) {
-        currentIndex = index;
-        currentZoom = 1;
-        updateViewerImage();
-        viewer.style.display = 'flex';
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function updateViewerImage() {
-        viewerImg.src = portfolioImages[currentIndex];
-        viewerImg.style.transform = `scale(${currentZoom})`;
-        counterSpan.innerText = `${currentIndex+1} / ${portfolioImages.length}`;
-    }
-    
+    function openViewer(index) { currentIndex = index; currentZoom = 1; updateViewerImage(); viewer.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+    function updateViewerImage() { viewerImg.src = portfolioImages[currentIndex]; viewerImg.style.transform = `scale(${currentZoom})`; counterSpan.innerText = `${currentIndex+1} / ${portfolioImages.length}`; }
     function nextImage() { currentIndex = (currentIndex + 1) % portfolioImages.length; updateViewerImage(); }
     function prevImage() { currentIndex = (currentIndex - 1 + portfolioImages.length) % portfolioImages.length; updateViewerImage(); }
     function closeViewer() { viewer.style.display = 'none'; document.body.style.overflow = 'auto'; currentZoom = 1; }
-    
     document.getElementById('nextBtn').onclick = nextImage;
     document.getElementById('prevBtn').onclick = prevImage;
     document.getElementById('zoomInBtn').onclick = () => { currentZoom = Math.min(currentZoom + 0.2, 3); viewerImg.style.transform = `scale(${currentZoom})`; };
     document.getElementById('zoomOutBtn').onclick = () => { currentZoom = Math.max(currentZoom - 0.2, 0.6); viewerImg.style.transform = `scale(${currentZoom})`; };
     window.closeViewer = closeViewer;
+    document.addEventListener('keydown', (e) => { if(viewer.style.display === 'flex') { if(e.key === 'ArrowRight') nextImage(); if(e.key === 'ArrowLeft') prevImage(); if(e.key === 'Escape') closeViewer(); } if(videoModal.style.display === 'flex' && e.key === 'Escape') closeVideoModal(); });
     
-    // Keyboard Navigation
-    document.addEventListener('keydown', (e) => {
-        if(viewer.style.display === 'flex') {
-            if(e.key === 'ArrowRight') nextImage();
-            if(e.key === 'ArrowLeft') prevImage();
-            if(e.key === 'Escape') closeViewer();
-        }
-        if(videoModal.style.display === 'flex' && e.key === 'Escape') closeVideoModal();
-    });
-    
-    // Mobile Swipe
-    let touchStartX = 0;
-    viewerImg.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
-    viewerImg.addEventListener('touchend', (e) => { let diff = e.changedTouches[0].screenX - touchStartX; if(diff > 50) prevImage(); else if(diff < -50) nextImage(); });
-    
-    // Video Modal Functions
     const videoModal = document.getElementById('videoModal');
     const videoFrame = document.getElementById('videoFrame');
-    
-    function openVideoModal(url) { 
-        videoFrame.src = url; 
-        videoModal.style.display = 'flex'; 
-        document.body.style.overflow = 'hidden'; 
-    }
-    
-    function closeVideoModal() { 
-        videoFrame.src = ''; 
-        videoModal.style.display = 'none'; 
-        document.body.style.overflow = 'auto'; 
-    }
+    function openVideoModal(url) { videoFrame.src = url; videoModal.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+    function closeVideoModal() { videoFrame.src = ''; videoModal.style.display = 'none'; document.body.style.overflow = 'auto'; }
     window.openVideoModal = openVideoModal;
     window.closeVideoModal = closeVideoModal;
     
@@ -563,30 +669,20 @@
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
         const message = document.getElementById('message').value.trim();
-        if(!name || !email || !message) {
-            document.getElementById('formFeedback').innerHTML = '<span style="color:#ff6666;">⚠️ All fields are required!</span>';
-            return;
-        }
-        if(!email.includes('@') || !email.includes('.')) {
-            document.getElementById('formFeedback').innerHTML = '<span style="color:#ff6666;">⚠️ Please enter a valid email!</span>';
-            return;
-        }
+        if(!name || !email || !message) { document.getElementById('formFeedback').innerHTML = '<span style="color:#ff6666;">⚠️ All fields are required!</span>'; return; }
+        if(!email.includes('@') || !email.includes('.')) { document.getElementById('formFeedback').innerHTML = '<span style="color:#ff6666;">⚠️ Valid email required!</span>'; return; }
         document.getElementById('formFeedback').innerHTML = '<span style="color:#00E5FF;">✨ Message sent! We will contact you soon.</span>';
         document.getElementById('contactForm').reset();
         setTimeout(() => document.getElementById('formFeedback').innerHTML = '', 3000);
     });
     
-    // Back to Top
+    // Back to Top & Navbar scroll
     const backBtn = document.getElementById('backToTop');
     window.addEventListener('scroll', () => {
-        if(window.scrollY > 500) backBtn.style.opacity = '1';
-        else backBtn.style.opacity = '0';
-        if(window.scrollY > 50) document.getElementById('navbar').classList.add('scrolled');
-        else document.getElementById('navbar').classList.remove('scrolled');
+        if(window.scrollY > 500) backBtn.style.opacity = '1'; else backBtn.style.opacity = '0';
+        if(window.scrollY > 50) document.getElementById('navbar').classList.add('scrolled'); else document.getElementById('navbar').classList.remove('scrolled');
     });
     backBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    // Mobile Menu
     window.toggleMenu = function() { document.querySelector('.navbar').classList.toggle('responsive'); };
     
     // Particle System
@@ -594,68 +690,49 @@
         const canvas = document.getElementById('heroParticles');
         if(!canvas) return;
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
         let particles = [];
-        for(let i = 0; i < 120; i++) {
-            particles.push({
-                x: Math.random() * canvas.width, y: Math.random() * canvas.height,
-                radius: Math.random() * 2 + 1, vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5,
-                color: `rgba(0, ${Math.floor(150 + Math.random() * 105)}, 255, ${Math.random() * 0.5 + 0.2})`
-            });
-        }
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fillStyle = p.color; ctx.fill();
-                p.x += p.vx; p.y += p.vy;
-                if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
-            });
-            requestAnimationFrame(animate);
-        }
+        for(let i = 0; i < 120; i++) particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, radius: Math.random() * 2 + 1, vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5, color: `rgba(0, ${Math.floor(150 + Math.random() * 105)}, 255, ${Math.random() * 0.5 + 0.2})` });
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { ctx.beginPath(); ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2); ctx.fillStyle = p.color; ctx.fill(); p.x += p.vx; p.y += p.vy; if(p.x < 0 || p.x > canvas.width) p.vx *= -1; if(p.y < 0 || p.y > canvas.height) p.vy *= -1; }); requestAnimationFrame(animate); }
         animate();
         window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
     }
     initParticles();
-    
-    // Hide Loader
     setTimeout(() => { const loader = document.getElementById('loader'); loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 1000); }, 2300);
-    
-    // Logo Error Handling
-    const logoImages = ['loaderLogo', 'navLogo', 'heroLogo', 'footerLogo'];
-    logoImages.forEach(id => {
-        const img = document.getElementById(id);
-        if(img) {
-            img.onerror = function() {
-                this.style.display = 'none';
-                const parent = this.parentElement;
-                if(parent && parent.classList.contains('loader-logo')) {
-                    parent.innerHTML = '<div style="width:100px;height:100px;background:linear-gradient(45deg,#00E5FF,#8A2BE2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;">SL</div>';
-                }
-            };
-        }
-    });
     
     // Statistics Counter
     const stat1 = document.getElementById('stat1'), stat2 = document.getElementById('stat2'), stat3 = document.getElementById('stat3');
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if(entry.isIntersecting) {
-                let s1=0,s2=0,s3=0;
-                const t1=287,t2=195,t3=9;
-                const interval = setInterval(() => {
-                    if(s1 < t1) { s1 += Math.ceil(t1/45); stat1.innerText = s1 + '+'; }
-                    if(s2 < t2) { s2 += Math.ceil(t2/45); stat2.innerText = s2 + '+'; }
-                    if(s3 < t3) { s3 += Math.ceil(t3/45); stat3.innerText = s3 + '+'; }
-                    if(s1 >= t1 && s2 >= t2 && s3 >= t3) clearInterval(interval);
-                }, 25);
-                statsObserver.disconnect();
-            }
-        });
-    }, { threshold: 0.5 });
+    const statsObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) { let s1=0,s2=0,s3=0; const t1=287,t2=195,t3=9; const interval = setInterval(() => { if(s1 < t1) { s1 += Math.ceil(t1/45); stat1.innerText = s1 + '+'; } if(s2 < t2) { s2 += Math.ceil(t2/45); stat2.innerText = s2 + '+'; } if(s3 < t3) { s3 += Math.ceil(t3/45); stat3.innerText = s3 + '+'; } if(s1 >= t1 && s2 >= t2 && s3 >= t3) clearInterval(interval); }, 25); statsObserver.disconnect(); } }); }, { threshold: 0.5 });
     statsObserver.observe(document.getElementById('about'));
+    
+    // Gen Z Package Order WhatsApp Functionality
+    const packageBtns = document.querySelectorAll('.select-package-btn');
+    const genzForm = document.getElementById('genzOrderForm');
+    const genzFeedback = document.getElementById('genzFormFeedback');
+    packageBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const packageValue = btn.getAttribute('data-package');
+            const packageSelect = document.getElementById('genzPackage');
+            for(let i = 0; i < packageSelect.options.length; i++) { if(packageSelect.options[i].value === packageValue) { packageSelect.selectedIndex = i; break; } }
+            document.getElementById('order-genz').scrollIntoView({ behavior: 'smooth' });
+            genzFeedback.innerHTML = '<span style="color:#00E5FF;">✨ Package selected! Fill in your details and send order.</span>';
+            setTimeout(() => genzFeedback.innerHTML = '', 3000);
+        });
+    });
+    genzForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const customerName = document.getElementById('genzName').value.trim();
+        const whatsappNumber = document.getElementById('genzWhatsapp').value.trim();
+        const selectedPackage = document.getElementById('genzPackage').value;
+        const requirements = document.getElementById('genzRequirements').value.trim();
+        if(!customerName || !whatsappNumber || !selectedPackage) { genzFeedback.innerHTML = '<span style="color:#ff6666;">⚠️ Please fill all required fields (Name, WhatsApp, Package).</span>'; return; }
+        const phoneRegex = /^[0-9]{10,15}$/;
+        if(!phoneRegex.test(whatsappNumber.replace(/[^0-9]/g, ''))) { genzFeedback.innerHTML = '<span style="color:#ff6666;">⚠️ Please enter a valid WhatsApp number (digits only).</span>'; return; }
+        const finalMessage = `Hello SL BLACK SHADOW KING 👋%0A%0ANew Gen Z Link Order%0A%0ACustomer Name: ${encodeURIComponent(customerName)}%0AWhatsApp Number: ${encodeURIComponent(whatsappNumber)}%0ASelected Package: ${encodeURIComponent(selectedPackage)}%0ARequirements: ${encodeURIComponent(requirements || 'No specific requirements')}%0A%0APlease contact me regarding my order.`;
+        window.open(`https://wa.me/94776763805?text=${finalMessage}`, '_blank');
+        genzFeedback.innerHTML = '<span style="color:#00E5FF;">🚀 Redirecting to WhatsApp... Thank you for your order!</span>';
+        setTimeout(() => { genzForm.reset(); setTimeout(() => genzFeedback.innerHTML = '', 5000); }, 2000);
+    });
 </script>
 </body>
 </html>
