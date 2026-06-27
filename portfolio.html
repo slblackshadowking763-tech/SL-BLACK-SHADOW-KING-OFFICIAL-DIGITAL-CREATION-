@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Portfolio · SLBSK DIGITAL</title>
+    <!-- SEO -->
+    <meta name="description" content="SLBSK DIGITAL CREATION portfolio - Graphic Design, Logo Design, Business Card Design." />
+    <link rel="icon" type="image/png" href="YOUR-LOGO.png" />
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #050505;
+            font-family: 'Poppins', 'Inter', 'Space Grotesk', sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        /* custom cursor (same as index) */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: #00E5FF;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px #00E5FF;
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1.5px solid rgba(0, 229, 255, 0.6);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            backdrop-filter: blur(4px);
+        }
+        @media (max-width: 768px) {
+            .cursor-dot,
+            .cursor-outline {
+                display: none;
+            }
+            body {
+                cursor: auto;
+            }
+        }
+
+        /* glass & neon theme */
+        .glass-card {
+            background: rgba(17, 17, 17, 0.5);
+            backdrop-filter: blur(16px);
+            border-radius: 32px;
+            border: 1px solid rgba(0, 229, 255, 0.25);
+            padding: 35px;
+            transition: 0.4s;
+        }
+        .glass-card:hover {
+            border-color: #00E5FF;
+            transform: translateY(-8px);
+        }
+
+        /* navbar (matches index) */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 5%;
+            width: 90%;
+            background: rgba(5, 5, 5, 0.65);
+            backdrop-filter: blur(20px);
+            border-radius: 80px;
+            padding: 10px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border: 1px solid rgba(0, 229, 255, 0.4);
+            transition: all 0.3s;
+        }
+        .navbar.scrolled {
+            top: 10px;
+            background: rgba(0, 0, 0, 0.9);
+            border-color: #00E5FF;
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .nav-logo {
+            width: 40px;
+            height: 40px;
+        }
+        .nav-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+        .logo-nav {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #00E5FF, #8A2BE2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .nav-links a:hover {
+            color: #00E5FF;
+            text-shadow: 0 0 8px #00E5FF;
+        }
+        .menu-icon {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        @media (max-width: 800px) {
+            .nav-links {
+                display: none;
+            }
+            .menu-icon {
+                display: block;
+            }
+            .navbar.responsive .nav-links {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                right: 20px;
+                background: rgba(0, 0, 0, 0.95);
+                padding: 25px;
+                border-radius: 25px;
+                gap: 1.5rem;
+                border: 1px solid #00E5FF;
+            }
+            .logo-nav {
+                font-size: 1rem;
+            }
+            .nav-logo {
+                width: 35px;
+                height: 35px;
+            }
+        }
+
+        /* back to home button */
+        .back-home-wrap {
+            margin-top: 100px;
+            padding: 0 5%;
+            text-align: left;
+        }
+        .back-home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 34px;
+            border-radius: 60px;
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.4);
+            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+            backdrop-filter: blur(8px);
+        }
+        .back-home-btn i {
+            color: #00E5FF;
+            transition: 0.3s;
+        }
+        .back-home-btn:hover {
+            background: rgba(0, 229, 255, 0.25);
+            border-color: #00E5FF;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.3);
+            transform: translateX(-6px);
+        }
+
+        /* main portfolio layout */
+        .portfolio-section {
+            padding: 40px 5% 100px;
+        }
+        .portfolio-section h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FFFFFF, #00E5FF, #8A2BE2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .portfolio-section .subhead {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 40px;
+        }
+
+        /* filter buttons */
+        .filter-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            margin-bottom: 50px;
+        }
+        .filter-btn {
+            padding: 10px 28px;
+            border-radius: 60px;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            background: rgba(17, 17, 17, 0.4);
+            backdrop-filter: blur(6px);
+            color: #ccc;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+        }
+        .filter-btn:hover {
+            border-color: #00E5FF;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+        }
+        .filter-btn.active {
+            background: linear-gradient(45deg, #00E5FF, #8A2BE2);
+            border-color: transparent;
+            color: #000;
+            box-shadow: 0 0 25px rgba(0, 229, 255, 0.4);
+        }
+
+        /* grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .portfolio-item {
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.4s;
+            border: 1px solid rgba(0, 229, 255, 0.15);
+            background: rgba(10, 10, 20, 0.5);
+            backdrop-filter: blur(4px);
+        }
+        .portfolio-item img {
+            width: 100%;
+            height: 340px;
+            object-fit: cover;
+            display: block;
+            transition: 0.5s ease;
+            border-radius: 28px;
+        }
+        .portfolio-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #00E5FF;
+            box-shadow: 0 25px 40px rgba(0, 229, 255, 0.25);
+        }
+        .portfolio-item:hover img {
+            transform: scale(1.06);
+            filter: brightness(1.12);
+        }
+        .portfolio-item .item-badge {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            color: #00E5FF;
+        }
+
+        /* lightbox viewer (matches index style) */
+        .portfolio-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(30px);
+            z-index: 3000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .viewer-img-container {
+            width: 80%;
+            max-width: 1200px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 85vh;
+        }
+        .viewer-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 28px;
+            transition: transform 0.2s;
+            box-shadow: 0 0 50px rgba(0, 229, 255, 0.2);
+        }
+        .viewer-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        .viewer-btn {
+            pointer-events: auto;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            padding: 14px 22px;
+            border-radius: 60px;
+            color: white;
+            cursor: pointer;
+            font-size: 1.5rem;
+            border: 1px solid #00E5FF;
+            transition: 0.2s;
+            user-select: none;
+        }
+        .viewer-btn:hover {
+            background: #00E5FF;
+            color: black;
+            transform: scale(1.1);
+        }
+        .close-viewer {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            font-size: 2rem;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 12px 24px;
+            border-radius: 60px;
+            cursor: pointer;
+            z-index: 3100;
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            color: #fff;
+            transition: 0.2s;
+        }
+        .close-viewer:hover {
+            background: #ff0033;
+            border-color: #ff0033;
+        }
+        .zoom-controls {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 3100;
+        }
+        .counter {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-weight: 500;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+        }
+        @media (max-width: 768px) {
+            .viewer-img-container {
+                width: 95%;
+                height: 70vh;
+            }
+            .viewer-btn {
+                padding: 8px 14px;
+                font-size: 1rem;
+            }
+            .close-viewer {
+                top: 15px;
+                right: 20px;
+                padding: 8px 16px;
+                font-size: 1.2rem;
+            }
+            .zoom-controls {
+                bottom: 10px;
+                right: 10px;
+                gap: 8px;
+            }
+            .counter {
+                bottom: 10px;
+                left: 10px;
+                padding: 6px 14px;
+                font-size: 0.8rem;
+            }
+            .portfolio-section h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* footer */
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: #0a0a0a;
+            border-top: 1px solid rgba(0, 229, 255, 0.4);
+        }
+        .footer-logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+        }
+        .footer-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px #00E5FF);
+        }
+        .footer-links a {
+            color: #00E5FF;
+            margin: 0 18px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .footer-links a:hover {
+            text-shadow: 0 0 10px #00E5FF;
+        }
+
+        .whatsapp-sticky {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            z-index: 1100;
+            box-shadow: 0 0 25px #25D366;
+            transition: 0.3s;
+            cursor: pointer;
+            color: #fff;
+        }
+        .whatsapp-sticky:hover {
+            transform: scale(1.15);
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #00E5FF;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1100;
+            opacity: 0;
+            transition: 0.3s;
+            border: none;
+            color: #000;
+            font-size: 1.2rem;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+        }
+        .back-to-top:hover {
+            transform: scale(1.1);
+        }
+
+        /* utility */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- cursors -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- navbar (same as index) -->
+    <div class="navbar" id="navbar">
+        <div class="logo-container">
+            <div class="nav-logo">
+                <img src="YOUR-LOGO.png" alt="SLBSK Logo" id="navLogo" />
+            </div>
+            <div class="logo-nav">SLBSK DIGITAL</div>
+        </div>
+        <div class="menu-icon" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#about">About</a>
+            <a href="index.html#services">Services</a>
+            <a href="portfolio.html" style="color:#00E5FF;text-shadow:0 0 8px #00E5FF;">Portfolio</a>
+            <a href="index.html#videos">Videos</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+    </div>
+
+    <!-- back to home -->
+    <div class="back-home-wrap">
+        <a href="index.html" class="back-home-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+
+    <!-- portfolio main -->
+    <section class="portfolio-section" data-aos="fade-up">
+        <h1>Our Creative Portfolio</h1>
+        <p class="subhead">Graphic Design · Logo Design · Business Card Design</p>
+
+        <!-- filters -->
+        <div class="filter-wrap" id="filterWrap">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="graphic">Graphic Design</button>
+            <button class="filter-btn" data-filter="logo">Logo Design</button>
+            <button class="filter-btn" data-filter="business">Business Card</button>
+        </div>
+
+        <!-- grid -->
+        <div class="portfolio-grid" id="portfolioGrid"></div>
+        <p style="text-align:center; margin-top:40px; color:#666; font-size:0.9rem;" id="portfolioStatus">✨ Click any image to view fullscreen</p>
+    </section>
+
+    <!-- lightbox viewer -->
+    <div id="portfolioViewer" class="portfolio-viewer">
+        <div class="close-viewer" onclick="closeViewer()">✕</div>
+        <div class="viewer-img-container">
+            <img id="viewerImg" class="viewer-img" alt="Portfolio" />
+            <div class="viewer-controls">
+                <div class="viewer-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></div>
+                <div class="viewer-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></div>
+            </div>
+            <div class="counter" id="imgCounter">1 / 18</div>
+            <div class="zoom-controls">
+                <div class="viewer-btn" id="zoomInBtn"><i class="fas fa-search-plus"></i></div>
+                <div class="viewer-btn" id="zoomOutBtn"><i class="fas fa-search-minus"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <footer>
+        <div class="footer-logo">
+            <img src="YOUR-LOGO.png" alt="SLBSK Logo" id="footerLogo" />
+        </div>
+        <p>SLBSK DIGITAL CREATION © 2026 — Graphic Design Studio</p>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#services">Services</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="https://www.facebook.com/share/1DtBAY9kXx/" target="_blank">Facebook</a>
+            <a href="https://www.instagram.com/slblackshadowking2026" target="_blank">Instagram</a>
+            <a href="https://wa.me/94776763805">WhatsApp</a>
+        </div>
+    </footer>
+
+    <!-- sticky whatsapp + back to top -->
+    <div class="whatsapp-sticky" onclick="window.open('https://wa.me/94776763805','_blank')"><i class="fab fa-whatsapp"></i></div>
+    <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: false, mirror: true });
+
+        // ---- DATA ----
+        const portfolioItems = [
+            // Graphic Design
+            { src: 'design1.jpg', category: 'graphic' },
+            { src: 'design2.jpg', category: 'graphic' },
+            { src: 'design3.jpg', category: 'graphic' },
+            { src: 'design5.jpg', category: 'graphic' },
+            { src: 'design8.jpg', category: 'graphic' },
+            { src: 'design9.jpg', category: 'graphic' },
+            { src: 'design12.jpg', category: 'graphic' },
+            { src: 'design14.jpg', category: 'graphic' },
+            { src: 'design16.jpg', category: 'graphic' },
+            { src: 'design17.jpg', category: 'graphic' },
+            { src: 'design18.jpg', category: 'graphic' },
+            // Logo
+            { src: 'design4.jpg', category: 'logo' },
+            { src: 'design6.jpg', category: 'logo' },
+            { src: 'design7.jpg', category: 'logo' },
+            { src: 'design10.jpg', category: 'logo' },
+            { src: 'design13.jpg', category: 'logo' },
+            // Business Card
+            { src: 'design11.jpg', category: 'business' },
+            { src: 'design15.jpg', category: 'business' }
+        ];
+
+        const grid = document.getElementById('portfolioGrid');
+        const statusMsg = document.getElementById('portfolioStatus');
+        let currentFilter = 'all';
+        let currentItems = [...portfolioItems];
+
+        // render
+        function renderGrid(filter) {
+            const filtered = filter === 'all' ? portfolioItems : portfolioItems.filter(item => item.category === filter);
+            currentItems = filtered;
+            if (filtered.length === 0) {
+                grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:#888;padding:60px 0;">No items in this category yet.</p>`;
+                return;
+            }
+            grid.innerHTML = '';
+            filtered.forEach((item, idx) => {
+                const div = document.createElement('div');
+                div.className = 'portfolio-item';
+                div.setAttribute('data-category', item.category);
+                div.setAttribute('data-index', idx);
+                const img = document.createElement('img');
+                img.src = item.src;
+                img.alt = item.category + ' design';
+                img.loading = 'lazy';
+                img.onerror = function() {
+                    this.src = 'https://placehold.co/600x800/1a1a2e/00E5FF?text=Image+Not+Found';
+                };
+                div.appendChild(img);
+                // badge
+                const badge = document.createElement('span');
+                badge.className = 'item-badge';
+                const label = item.category === 'graphic' ? 'Graphic' : item.category === 'logo' ? 'Logo' : 'Business Card';
+                badge.textContent = label;
+                div.appendChild(badge);
+                div.addEventListener('click', () => {
+                    const globalIdx = portfolioItems.indexOf(item);
+                    if (globalIdx !== -1) openViewer(globalIdx);
+                });
+                grid.appendChild(div);
+            });
+        }
+
+        // filter buttons
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderGrid(currentFilter);
+            });
+        });
+
+        // initial render
+        renderGrid('all');
+
+        // ---- LIGHTBOX VIEWER ----
+        const viewer = document.getElementById('portfolioViewer');
+        const viewerImg = document.getElementById('viewerImg');
+        const counterSpan = document.getElementById('imgCounter');
+        let currentViewIdx = 0;
+        let currentZoom = 1;
+
+        function openViewer(index) {
+            currentViewIdx = index;
+            currentZoom = 1;
+            updateViewerImage();
+            viewer.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateViewerImage() {
+            const src = portfolioItems[currentViewIdx].src;
+            viewerImg.src = src;
+            viewerImg.style.transform = `scale(${currentZoom})`;
+            counterSpan.innerText = `${currentViewIdx + 1} / ${portfolioItems.length}`;
+        }
+
+        function nextImage() {
+            currentViewIdx = (currentViewIdx + 1) % portfolioItems.length;
+            updateViewerImage();
+        }
+
+        function prevImage() {
+            currentViewIdx = (currentViewIdx - 1 + portfolioItems.length) % portfolioItems.length;
+            updateViewerImage();
+        }
+
+        function closeViewer() {
+            viewer.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            currentZoom = 1;
+        }
+
+        // controls
+        document.getElementById('nextBtn').addEventListener('click', nextImage);
+        document.getElementById('prevBtn').addEventListener('click', prevImage);
+        document.getElementById('zoomInBtn').addEventListener('click', () => {
+            currentZoom = Math.min(currentZoom + 0.2, 3);
+            viewerImg.style.transform = `scale(${currentZoom})`;
+        });
+        document.getElementById('zoomOutBtn').addEventListener('click', () => {
+            currentZoom = Math.max(currentZoom - 0.2, 0.6);
+            viewerImg.style.transform = `scale(${currentZoom})`;
+        });
+        window.closeViewer = closeViewer;
+        document.addEventListener('keydown', (e) => {
+            if (viewer.style.display === 'flex') {
+                if (e.key === 'ArrowRight') nextImage();
+                if (e.key === 'ArrowLeft') prevImage();
+                if (e.key === 'Escape') closeViewer();
+            }
+        });
+
+        // ---- navbar scroll ----
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+            const backBtn = document.getElementById('backToTop');
+            if (window.scrollY > 500) backBtn.classList.add('visible');
+            else backBtn.classList.remove('visible');
+        });
+
+        document.getElementById('backToTop').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // menu toggle
+        window.toggleMenu = function() {
+            document.querySelector('.navbar').classList.toggle('responsive');
+        };
+
+        // close menu on link click (mobile)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.navbar').classList.remove('responsive');
+            });
+        });
+
+        console.log('✨ Portfolio page ready. Images: ', portfolioItems.length);
+    </script>
+</body>
+</html>

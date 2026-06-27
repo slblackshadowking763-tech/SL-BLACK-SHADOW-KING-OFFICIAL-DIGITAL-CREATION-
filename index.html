@@ -343,7 +343,7 @@
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#services">Services</a>
-        <a href="#portfolio">Portfolio</a>
+        <a href="portfolio.html">Portfolio</a>
         <a href="#videos">Videos</a>
         <a href="#contact">Contact</a>
     </div>
@@ -359,8 +359,13 @@
         <h1>SLBSK DIGITAL CREATION</h1>
         <p>"We Don't Just Design. We Create Digital Experiences."</p>
         <div>
-            <a href="#portfolio" class="btn btn-primary">View Portfolio</a>
+            <a href="portfolio.html" class="btn btn-primary">View Portfolio</a>
             <a href="#contact" class="btn">Hire Us</a>
+        </div>
+        <div style="margin-top: 20px;">
+            <a href="portfolio.html" style="display:inline-flex;align-items:center;gap:10px;padding:12px 30px;border-radius:50px;background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.4);color:#fff;text-decoration:none;font-weight:500;transition:0.3s;backdrop-filter:blur(8px);" onmouseover="this.style.background='rgba(0,229,255,0.25)';this.style.boxShadow='0 0 30px rgba(0,229,255,0.3)'" onmouseout="this.style.background='rgba(0,229,255,0.1)';this.style.boxShadow='none'">
+                <i class="fas fa-arrow-right" style="color:#00E5FF;"></i> Full Portfolio →
+            </a>
         </div>
         <div class="scroll-indicator" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
             <i class="fas fa-chevron-down"></i>
@@ -550,7 +555,7 @@
     <div class="footer-links">
         <a href="#home">Home</a>
         <a href="#services">Services</a>
-        <a href="#portfolio">Portfolio</a>
+        <a href="portfolio.html">Portfolio</a>
         <a href="https://www.facebook.com/share/1DtBAY9kXx/" target="_blank">Facebook</a>
         <a href="https://www.instagram.com/slblackshadowking2026" target="_blank">Instagram</a>
         <a href="https://wa.me/94776763805">WhatsApp</a>
@@ -590,12 +595,12 @@
     
     // VIDEO DATA
     const videosData = [
-        { id: "OJ6LrEvZu_c", title: "Creative Design Reel", duration: "0:45" },
-        { id: "dqFaMuwUzCg", title: "Motion Graphics Showcase", duration: "0:32" },
-        { id: "a5ZcFfWA6Wo", title: "Brand Identity Design", duration: "0:58" },
-        { id: "snKYZmU77eU", title: "3D Animation Preview", duration: "0:27" },
-        { id: "Ug6Bp0vNcKs", title: "Social Media Content", duration: "0:41" },
-        { id: "nMZxQuMzKYA", title: "Visual Effects Reel", duration: "0:39" }
+        { id: "OJ6LrEvZu_c", title: "Content Video", duration: "0:45" },
+        { id: "dqFaMuwUzCg", title: "Content Video", duration: "0:32" },
+        { id: "a5ZcFfWA6Wo", title: "Content Video", duration: "0:58" },
+        { id: "snKYZmU77eU", title: "Content Video", duration: "0:27" },
+        { id: "Ug6Bp0vNcKs", title: "Content Video", duration: "0:41" },
+        { id: "nMZxQuMzKYA", title: "Content Video", duration: "0:39" }
     ];
     
     function getYouTubeThumbnail(videoId) { return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`; }
@@ -663,17 +668,31 @@
     window.openVideoModal = openVideoModal;
     window.closeVideoModal = closeVideoModal;
     
-    // Contact Form
+    // Contact Form - WhatsApp Integration
     document.getElementById('contactForm').addEventListener('submit', (e) => {
         e.preventDefault();
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
         const message = document.getElementById('message').value.trim();
-        if(!name || !email || !message) { document.getElementById('formFeedback').innerHTML = '<span style="color:#ff6666;">⚠️ All fields are required!</span>'; return; }
-        if(!email.includes('@') || !email.includes('.')) { document.getElementById('formFeedback').innerHTML = '<span style="color:#ff6666;">⚠️ Valid email required!</span>'; return; }
-        document.getElementById('formFeedback').innerHTML = '<span style="color:#00E5FF;">✨ Message sent! We will contact you soon.</span>';
+        
+        if(!name || !email || !message) { 
+            document.getElementById('formFeedback').innerHTML = '<span style="color:#ff6666;">⚠️ All fields are required!</span>'; 
+            return; 
+        }
+        if(!email.includes('@') || !email.includes('.')) { 
+            document.getElementById('formFeedback').innerHTML = '<span style="color:#ff6666;">⚠️ Valid email required!</span>'; 
+            return; 
+        }
+        
+        // WhatsApp message format
+        const whatsappMessage = `Hello SLBSK DIGITAL CREATION 👋%0A%0ANew Contact Form Message:%0A%0AName: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0AMessage: ${encodeURIComponent(message)}%0A%0APlease contact me.`;
+        
+        // Open WhatsApp with the message
+        window.open(`https://wa.me/94776763805?text=${whatsappMessage}`, '_blank');
+        
+        document.getElementById('formFeedback').innerHTML = '<span style="color:#00E5FF;">✨ Message sent via WhatsApp! We will contact you soon.</span>';
         document.getElementById('contactForm').reset();
-        setTimeout(() => document.getElementById('formFeedback').innerHTML = '', 3000);
+        setTimeout(() => document.getElementById('formFeedback').innerHTML = '', 5000);
     });
     
     // Back to Top & Navbar scroll
