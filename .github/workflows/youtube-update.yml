@@ -27,7 +27,7 @@ jobs:
           import urllib.request
           import xml.etree.ElementTree as ET
 
-          channel_url = os.environ["https://youtube.com/@slblackshadowking?si=dXpIT6r2WXO2yVmr"]
+          channel_url = os.environ[["YOUTUBE_CHANNEL_URL"]
 
           # Get channel page
           req = urllib.request.Request(
