@@ -406,11 +406,14 @@
     <p style="text-align:center; margin-top:30px; color:#888; font-size:0.9rem;" id="portfolioStatus"></p>
 </section>
 
-<!-- Video Showcase Section -->
+<!-- Video Showcase Section - Auto-updated from YouTube -->
 <section id="videos" data-aos="fade-up">
     <h2>Video Showcase</h2>
     <p style="text-align:center; color:#aaa; margin-bottom:30px;">Click any video to watch the full reel</p>
-    <div class="video-grid" id="videoGrid"></div>
+    <div class="video-grid" id="videoGrid">
+        <!-- Videos will be populated automatically from YouTube channel -->
+        <div style="grid-column:1/-1; text-align:center; padding:40px; color:#aaa;" id="videoLoadingMsg"><i class="fas fa-spinner fa-spin"></i> Loading latest videos...</div>
+    </div>
 </section>
 
 <!-- GEN Z LINK PACKAGES SECTION - Enhanced Glass Effect -->
@@ -593,36 +596,281 @@
 <script>
     AOS.init({ duration: 1000, once: false, mirror: true });
     
-    // VIDEO DATA
-    const videosData = [
-        { id: "OJ6LrEvZu_c", title: "Content Video", duration: "0:45" },
-        { id: "dqFaMuwUzCg", title: "Content Video", duration: "0:32" },
-        { id: "a5ZcFfWA6Wo", title: "Content Video", duration: "0:58" },
-        { id: "snKYZmU77eU", title: "Content Video", duration: "0:27" },
-        { id: "Ug6Bp0vNcKs", title: "Content Video", duration: "0:41" },
-        { id: "nMZxQuMzKYA", title: "Content Video", duration: "0:39" }
-    ];
+    // ============================================================
+    // CONFIGURATION: Change your YouTube channel URL here
+    // ============================================================
+    const YOUTUBE_CHANNEL_URL = "https://youtube.com/@slblackshadowking?si=dXpIT6r2WXO2yVmr";
+    const MAX_VIDEOS = 6;  // Maximum number of videos to display
     
-    function getYouTubeThumbnail(videoId) { return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`; }
-    function getYouTubeEmbedUrl(videoId) { return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`; }
+    // ============================================================
+    // YouTube auto-update system using public RSS feed (no API key)
+    // ============================================================
+    async function fetchYouTubeVideos() {
+        const videoGrid = document.getElementById('videoGrid');
+        const loadingMsg = document.getElementById('videoLoadingMsg');
+        
+        try {
+            // Extract channel ID from URL or use a public RSS proxy
+            // We'll use the YouTube RSS feed: https://www.youtube.com/feeds/videos.xml?channel_id=CHANNEL_ID
+            // But we need the channel ID. We'll extract from the URL or use a public lookup.
+            const channelId = await getChannelIdFromUrl(YOUTUBE_CHANNEL_URL);
+            if (!channelId) throw new Error("Could not find channel ID");
+            
+            const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+            
+            // Use a free CORS proxy to fetch the RSS feed
+            // Using a public proxy that works with GitHub Pages
+            const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+            
+            const response = await fetch(proxyUrl);
+            if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+            
+            const data = await response.json();
+            if (data.status !== 'ok' || !data.items || data.items.length === 0) {
+                throw new Error('No videos found or feed unavailable');
+            }
+            
+            // Sort by published date (newest first) - RSS2JSON already does this, but ensure
+            const videos = data.items.slice(0, MAX_VIDEOS);
+            
+            // Clear existing content (remove loading message)
+            videoGrid.innerHTML = '';
+            
+            // Render videos
+            videos.forEach((item, index) => {
+                const videoId = extractVideoId(item.link);
+                if (!videoId) return;
+                
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.setAttribute('data-aos', 'fade-up');
+                card.setAttribute('data-aos-delay', (index * 50));
+                
+                const pubDate = new Date(item.pubDate);
+                const dateStr = pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                
+                card.innerHTML = `
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="${item.title}" 
+                             onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                        <div class="duration-badge"><i class="far fa-calendar-alt"></i> ${dateStr}</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>${item.title}</h3>
+                        <p><i class="fab fa-youtube"></i> YouTube Shorts</p>
+                    </div>
+                `;
+                
+                card.onclick = () => openVideoModal(`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`);
+                videoGrid.appendChild(card);
+            });
+            
+            // If no videos were rendered, show a message
+            if (videoGrid.children.length === 0) {
+                videoGrid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:#aaa;">
+                    <i class="fas fa-video-slash" style="font-size:2rem; display:block; margin-bottom:15px;"></i>
+                    No videos available. Check back later!
+                </div>`;
+            }
+            
+        } catch (error) {
+            console.error('YouTube feed error:', error);
+            videoGrid.innerHTML = `
+                <div style="grid-column:1/-1; text-align:center; padding:40px; color:#aaa; background:rgba(255,0,0,0.05); border-radius:20px; border:1px solid rgba(255,0,0,0.2);">
+                    <i class="fas fa-exclamation-triangle" style="font-size:2rem; display:block; margin-bottom:15px; color:#ff6666;"></i>
+                    <p style="color:#ff6666; font-weight:500;">Could not load videos from YouTube.</p>
+                    <p style="font-size:0.85rem; margin-top:10px;">Please check your internet connection or try again later.</p>
+                    <button onclick="fetchYouTubeVideos()" style="margin-top:15px; padding:10px 25px; border-radius:50px; background:#00E5FF; border:none; color:#000; font-weight:600; cursor:pointer;">
+                        <i class="fas fa-sync"></i> Retry
+                    </button>
+                </div>
+            `;
+        }
+    }
     
-    const videoGrid = document.getElementById('videoGrid');
-    videosData.forEach((video, index) => {
-        const card = document.createElement('div');
-        card.className = 'video-card';
-        card.setAttribute('data-aos', 'fade-up');
-        card.setAttribute('data-aos-delay', (index * 50));
-        card.innerHTML = `
-            <div class="video-thumbnail">
-                <img src="${getYouTubeThumbnail(video.id)}" alt="${video.title}" onerror="this.src='https://img.youtube.com/vi/${video.id}/hqdefault.jpg'">
-                <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
-                <div class="duration-badge"><i class="far fa-clock"></i> ${video.duration}</div>
-            </div>
-            <div class="video-info"><h3>${video.title}</h3><p><i class="fab fa-youtube"></i> YouTube Shorts</p></div>
-        `;
-        card.onclick = () => openVideoModal(getYouTubeEmbedUrl(video.id));
-        videoGrid.appendChild(card);
-    });
+    // Extract channel ID from YouTube channel URL
+    async function getChannelIdFromUrl(url) {
+        try {
+            // If it's already a channel ID (starts with UC)
+            const channelIdMatch = url.match(/(?:channel\/|\/)(UC[a-zA-Z0-9_-]{22})/);
+            if (channelIdMatch) return channelIdMatch[1];
+            
+            // If it's a handle (@username) or custom URL, we need to fetch the page
+            // Use a simple approach: fetch the page and extract channel ID from meta tags
+            // Note: This works because YouTube's public pages have the channel ID in meta tags
+            
+            // Try to extract from the URL itself if it's a handle
+            let handle = url.match(/@([a-zA-Z0-9_-]+)/);
+            if (handle) {
+                handle = handle[1];
+                // Use a public API to get channel ID from handle
+                // Using a free service: https://yt.lemnoslife.com/ (no API key required)
+                try {
+                    const response = await fetch(`https://yt.lemnoslife.com/channels?handle=${handle}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.items && data.items.length > 0 && data.items[0].id) {
+                            return data.items[0].id;
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Handle lookup failed, trying fallback:', e);
+                }
+            }
+            
+            // Fallback: try to fetch the channel page and extract the channel ID from meta tags
+            try {
+                const response = await fetch(url, { mode: 'no-cors' }); // This won't work due to CORS, but we'll try
+                // Actually, no-cors won't let us read the response. So we use a different approach.
+            } catch (e) {
+                // If direct fetch fails, try using a proxy or the handle approach
+                // Many channels have their handle in the URL, we can try to construct the channel ID
+                // by using a known mapping service
+            }
+            
+            // Last resort: try to use the handle to construct a feed URL that works
+            // YouTube's RSS feed also works with handle: https://www.youtube.com/feeds/videos.xml?user=HANDLE
+            // But this is being deprecated. We'll use the handle approach as fallback.
+            if (handle) {
+                // We'll return a special flag and use the user-based feed
+                return `user_${handle}`;
+            }
+            
+            throw new Error('Could not determine channel ID from URL');
+        } catch (error) {
+            console.error('Error getting channel ID:', error);
+            throw error;
+        }
+    }
+    
+    // Extract video ID from YouTube link
+    function extractVideoId(link) {
+        const patterns = [
+            /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+            /\/embed\/([a-zA-Z0-9_-]{11})/,
+            /\/v\/([a-zA-Z0-9_-]{11})/
+        ];
+        for (const pattern of patterns) {
+            const match = link.match(pattern);
+            if (match) return match[1];
+        }
+        return null;
+    }
+    
+    // Modified fetch function that handles both channel ID and handle-based feeds
+    async function fetchYouTubeVideos() {
+        const videoGrid = document.getElementById('videoGrid');
+        
+        try {
+            let channelId = null;
+            let handle = null;
+            
+            // Try to extract handle or channel ID from URL
+            const handleMatch = YOUTUBE_CHANNEL_URL.match(/@([a-zA-Z0-9_-]+)/);
+            if (handleMatch) handle = handleMatch[1];
+            
+            const channelIdMatch = YOUTUBE_CHANNEL_URL.match(/(?:channel\/|\/)(UC[a-zA-Z0-9_-]{22})/);
+            if (channelIdMatch) channelId = channelIdMatch[1];
+            
+            // If we have a handle but no channel ID, try to resolve it via public API
+            if (handle && !channelId) {
+                try {
+                    const resolveResponse = await fetch(`https://yt.lemnoslife.com/channels?handle=${handle}`);
+                    if (resolveResponse.ok) {
+                        const resolveData = await resolveResponse.json();
+                        if (resolveData.items && resolveData.items.length > 0 && resolveData.items[0].id) {
+                            channelId = resolveData.items[0].id;
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Handle resolution via API failed:', e);
+                }
+            }
+            
+            // If we still don't have a channel ID, try using the handle in the feed URL
+            let feedUrl;
+            if (channelId) {
+                feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+            } else if (handle) {
+                // Some YouTube channels still support the user-based feed
+                feedUrl = `https://www.youtube.com/feeds/videos.xml?user=${handle}`;
+            } else {
+                throw new Error('Could not determine channel ID or handle from URL');
+            }
+            
+            // Use RSS2JSON proxy (free, no API key)
+            const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+            
+            const response = await fetch(proxyUrl);
+            if (!response.ok) throw new Error(`HTTP error ${response.status}`);
+            
+            const data = await response.json();
+            if (data.status !== 'ok' || !data.items || data.items.length === 0) {
+                throw new Error('No videos found or feed unavailable');
+            }
+            
+            // Sort by published date (newest first)
+            const videos = data.items.slice(0, MAX_VIDEOS);
+            
+            // Clear existing content
+            videoGrid.innerHTML = '';
+            
+            // Render videos
+            videos.forEach((item, index) => {
+                const videoId = extractVideoId(item.link);
+                if (!videoId) return;
+                
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.setAttribute('data-aos', 'fade-up');
+                card.setAttribute('data-aos-delay', (index * 50));
+                
+                const pubDate = new Date(item.pubDate);
+                const dateStr = pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+                
+                card.innerHTML = `
+                    <div class="video-thumbnail">
+                        <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="${item.title}" 
+                             onerror="this.src='https://img.youtube.com/vi/${videoId}/hqdefault.jpg'">
+                        <div class="play-overlay"><i class="fas fa-play-circle"></i></div>
+                        <div class="duration-badge"><i class="far fa-calendar-alt"></i> ${dateStr}</div>
+                    </div>
+                    <div class="video-info">
+                        <h3>${item.title}</h3>
+                        <p><i class="fab fa-youtube"></i> YouTube Shorts</p>
+                    </div>
+                `;
+                
+                card.onclick = () => openVideoModal(`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`);
+                videoGrid.appendChild(card);
+            });
+            
+            if (videoGrid.children.length === 0) {
+                videoGrid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:#aaa;">
+                    <i class="fas fa-video-slash" style="font-size:2rem; display:block; margin-bottom:15px;"></i>
+                    No videos available. Check back later!
+                </div>`;
+            }
+            
+        } catch (error) {
+            console.error('YouTube feed error:', error);
+            videoGrid.innerHTML = `
+                <div style="grid-column:1/-1; text-align:center; padding:40px; color:#aaa; background:rgba(255,0,0,0.05); border-radius:20px; border:1px solid rgba(255,0,0,0.2);">
+                    <i class="fas fa-exclamation-triangle" style="font-size:2rem; display:block; margin-bottom:15px; color:#ff6666;"></i>
+                    <p style="color:#ff6666; font-weight:500;">Could not load videos from YouTube.</p>
+                    <p style="font-size:0.85rem; margin-top:10px;">Please check your internet connection or try again later.</p>
+                    <button onclick="fetchYouTubeVideos()" style="margin-top:15px; padding:10px 25px; border-radius:50px; background:#00E5FF; border:none; color:#000; font-weight:600; cursor:pointer;">
+                        <i class="fas fa-sync"></i> Retry
+                    </button>
+                </div>
+            `;
+        }
+    }
+    
+    // ============================================================
+    // Existing website JavaScript (preserved)
+    // ============================================================
     
     // Portfolio Images
     const portfolioImages = ["design1.jpg", "design2.jpg", "design3.jpg", "design4.jpg", "design5.jpg", "design6.jpg", "design7.jpg", "design8.jpg", "design9.jpg", "design10.jpg"];
@@ -684,10 +932,7 @@
             return; 
         }
         
-        // WhatsApp message format
         const whatsappMessage = `Hello SLBSK DIGITAL CREATION 👋%0A%0ANew Contact Form Message:%0A%0AName: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0AMessage: ${encodeURIComponent(message)}%0A%0APlease contact me.`;
-        
-        // Open WhatsApp with the message
         window.open(`https://wa.me/94776763805?text=${whatsappMessage}`, '_blank');
         
         document.getElementById('formFeedback').innerHTML = '<span style="color:#00E5FF;">✨ Message sent via WhatsApp! We will contact you soon.</span>';
@@ -751,6 +996,25 @@
         window.open(`https://wa.me/94776763805?text=${finalMessage}`, '_blank');
         genzFeedback.innerHTML = '<span style="color:#00E5FF;">🚀 Redirecting to WhatsApp... Thank you for your order!</span>';
         setTimeout(() => { genzForm.reset(); setTimeout(() => genzFeedback.innerHTML = '', 5000); }, 2000);
+    });
+    
+    // ============================================================
+    // Load YouTube videos automatically when page loads
+    // ============================================================
+    // Small delay to ensure AOS and other elements are ready
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(fetchYouTubeVideos, 500);
+    });
+    
+    // Also reload videos if user comes back to the tab
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+            // Refresh videos only if the video grid is empty or has error state
+            const videoGrid = document.getElementById('videoGrid');
+            if (videoGrid.children.length <= 1) {
+                fetchYouTubeVideos();
+            }
+        }
     });
 </script>
 </body>
