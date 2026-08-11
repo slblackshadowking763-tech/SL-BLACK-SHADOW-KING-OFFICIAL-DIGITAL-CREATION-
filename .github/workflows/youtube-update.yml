@@ -18,7 +18,7 @@ jobs:
 
       - name: Update YouTube videos
         env:
-          YOUTUBE_CHANNEL_URL: "https://youtube.com/@slblackshadowking"
+          YOUTUBE_CHANNEL_URL: "https://youtube.com/@s1blackshadowking"
         run: |
           python - <<'PY'
           import os
@@ -27,7 +27,7 @@ jobs:
           import urllib.request
           import xml.etree.ElementTree as ET
 
-          channel_url = os.environ[["YOUTUBE_CHANNEL_URL"]
+          channel_url = os.environ["YOUTUBE_CHANNEL_URL"]
 
           # Get channel page
           req = urllib.request.Request(
