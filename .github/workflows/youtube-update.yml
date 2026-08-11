@@ -18,7 +18,7 @@ jobs:
 
       - name: Update YouTube videos
         env:
-          YOUTUBE_CHANNEL_URL: "https://youtube.com/@slblackshadowking?si=dXpIT6r2WXO2yVmr"
+          YOUTUBE_CHANNEL_URL: "https://youtube.com/@slblackshadowking"
         run: |
           python - <<'PY'
           import os
